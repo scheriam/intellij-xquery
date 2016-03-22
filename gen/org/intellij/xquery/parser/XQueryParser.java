@@ -1,20 +1,3 @@
-/*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
- * (see the CONTRIBUTORS file).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 // This is a generated file. Not intended for manual editing.
 package org.intellij.xquery.parser;
 
@@ -835,10 +818,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean AbbrevForwardStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AbbrevForwardStep")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<abbrev forward step>");
+    Marker m = enter_section_(b, l, _NONE_, ABBREV_FORWARD_STEP, "<abbrev forward step>");
     r = AbbrevForwardStep_0(b, l + 1);
     r = r && NodeTest(b, l + 1);
-    exit_section_(b, l, m, ABBREV_FORWARD_STEP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -866,10 +849,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean AdditiveExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AdditiveExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<additive expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, ADDITIVE_EXPR, "<additive expr>");
     r = MultiplicativeExpr(b, l + 1);
     r = r && AdditiveExpr_1(b, l + 1);
-    exit_section_(b, l, m, ADDITIVE_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -891,10 +874,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AdditiveOperator")) return false;
     if (!nextTokenIs(b, "<additive operator>", OP_PLUS, OP_MINUS)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<additive operator>");
+    Marker m = enter_section_(b, l, _NONE_, ADDITIVE_OPERATOR, "<additive operator>");
     r = consumeToken(b, OP_PLUS);
     if (!r) r = consumeToken(b, OP_MINUS);
-    exit_section_(b, l, m, ADDITIVE_OPERATOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -904,11 +887,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AdditiveOptionalExpr")) return false;
     if (!nextTokenIs(b, "", OP_PLUS, OP_MINUS)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = AdditiveOperator(b, l + 1);
     p = r; // pin = 1
     r = r && MultiplicativeExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -930,10 +913,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean AndExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AndExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<and expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, AND_EXPR, "<and expr>");
     r = ComparisonExpr(b, l + 1);
     r = r && AndExpr_1(b, l + 1);
-    exit_section_(b, l, m, AND_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -955,11 +938,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AndMultipliedExpr")) return false;
     if (!nextTokenIs(b, K_AND)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = AndOperator(b, l + 1);
     p = r; // pin = 1
     r = r && ComparisonExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1051,9 +1034,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AnnotationName")) return false;
     if (!nextTokenIs(b, "<annotation name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<annotation name>");
+    Marker m = enter_section_(b, l, _NONE_, ANNOTATION_NAME, "<annotation name>");
     r = EQName(b, l + 1);
-    exit_section_(b, l, m, ANNOTATION_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1063,13 +1046,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AnyFunctionTest")) return false;
     if (!nextTokenIs(b, K_FUNCTION)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ANY_FUNCTION_TEST, null);
     r = consumeToken(b, K_FUNCTION);
     r = r && consumeToken(b, L_PAR);
     r = r && consumeToken(b, STAR_SIGN);
     p = r; // pin = 3
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, ANY_FUNCTION_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1079,12 +1062,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AnyKindTest")) return false;
     if (!nextTokenIs(b, K_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ANY_KIND_TEST, null);
     r = consumeToken(b, K_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, ANY_KIND_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1106,10 +1089,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean AposAttrValueContent(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AposAttrValueContent")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<apos attr value content>");
+    Marker m = enter_section_(b, l, _NONE_, APOS_ATTR_VALUE_CONTENT, "<apos attr value content>");
     r = AposAttrContentChar(b, l + 1);
     if (!r) r = CommonContent(b, l + 1);
-    exit_section_(b, l, m, APOS_ATTR_VALUE_CONTENT, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1118,10 +1101,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean Argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Argument")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<argument>");
+    Marker m = enter_section_(b, l, _NONE_, ARGUMENT, "<argument>");
     r = ExprSingle(b, l + 1);
     if (!r) r = ArgumentPlaceholder(b, l + 1);
-    exit_section_(b, l, m, ARGUMENT, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1131,12 +1114,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ArgumentList")) return false;
     if (!nextTokenIs(b, L_PAR)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ARGUMENT_LIST, null);
     r = consumeToken(b, L_PAR);
     p = r; // pin = 1
     r = r && report_error_(b, ArgumentList_1(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, ARGUMENT_LIST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1188,9 +1171,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AtomicOrUnionType")) return false;
     if (!nextTokenIs(b, "<atomic or union type>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<atomic or union type>");
+    Marker m = enter_section_(b, l, _NONE_, ATOMIC_OR_UNION_TYPE, "<atomic or union type>");
     r = EQName(b, l + 1);
-    exit_section_(b, l, m, ATOMIC_OR_UNION_TYPE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1223,10 +1206,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean AttribNameOrWildcard(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AttribNameOrWildcard")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<attrib name or wildcard>");
+    Marker m = enter_section_(b, l, _NONE_, ATTRIB_NAME_OR_WILDCARD, "<attrib name or wildcard>");
     r = AttributeName(b, l + 1);
     if (!r) r = consumeToken(b, STAR_SIGN);
-    exit_section_(b, l, m, ATTRIB_NAME_OR_WILDCARD, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1236,9 +1219,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AttributeDeclaration")) return false;
     if (!nextTokenIs(b, "<attribute declaration>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<attribute declaration>");
+    Marker m = enter_section_(b, l, _NONE_, ATTRIBUTE_DECLARATION, "<attribute declaration>");
     r = AttributeName(b, l + 1);
-    exit_section_(b, l, m, ATTRIBUTE_DECLARATION, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1248,9 +1231,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AttributeName")) return false;
     if (!nextTokenIs(b, "<attribute name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<attribute name>");
+    Marker m = enter_section_(b, l, _NONE_, ATTRIBUTE_NAME, "<attribute name>");
     r = EQName(b, l + 1);
-    exit_section_(b, l, m, ATTRIBUTE_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1260,13 +1243,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "AttributeTest")) return false;
     if (!nextTokenIs(b, K_ATTRIBUTE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ATTRIBUTE_TEST, null);
     r = consumeToken(b, K_ATTRIBUTE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, AttributeTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, ATTRIBUTE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1311,10 +1294,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean AxisStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "AxisStep")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<axis step>");
+    Marker m = enter_section_(b, l, _NONE_, AXIS_STEP, "<axis step>");
     r = AxisStep_0(b, l + 1);
     r = r && PredicateList(b, l + 1);
-    exit_section_(b, l, m, AXIS_STEP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1336,13 +1319,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "BaseURIDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, BASE_URI_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_BASE_URI);
     p = r; // pin = 2
     r = r && report_error_(b, URILiteral(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, BASE_URI_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1352,13 +1335,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "BoundarySpaceDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, BOUNDARY_SPACE_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_BOUNDARY_SPACE);
     p = r; // pin = 2
     r = r && report_error_(b, BoundarySpaceDecl_2(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, BOUNDARY_SPACE_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1391,14 +1374,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // CDataSectionContentChar*
   public static boolean CDataSectionContents(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CDataSectionContents")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<c data section contents>");
+    Marker m = enter_section_(b, l, _NONE_, C_DATA_SECTION_CONTENTS, "<c data section contents>");
     int c = current_position_(b);
     while (true) {
       if (!consumeToken(b, CDATASECTIONCONTENTCHAR)) break;
       if (!empty_element_parsed_guard_(b, "CDataSectionContents", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, l, m, C_DATA_SECTION_CONTENTS, true, false, null);
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -1408,13 +1391,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CaseClause")) return false;
     if (!nextTokenIs(b, K_CASE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, CASE_CLAUSE, null);
     r = consumeToken(b, K_CASE);
     p = r; // pin = 1
     r = r && report_error_(b, CaseClause_1(b, l + 1));
     r = p && report_error_(b, SequenceTypeUnion(b, l + 1)) && r;
     r = p && SwitchReturnClause(b, l + 1) && r;
-    exit_section_(b, l, m, CASE_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1442,10 +1425,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean CastExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CastExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<cast expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, CAST_EXPR, "<cast expr>");
     r = UnaryExpr(b, l + 1);
     r = r && CastExpr_1(b, l + 1);
-    exit_section_(b, l, m, CAST_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1475,11 +1458,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CastOptionalExpr")) return false;
     if (!nextTokenIs(b, K_CAST)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = CastOperator(b, l + 1);
     p = r; // pin = 1
     r = r && SingleType(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1488,10 +1471,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean CastableExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CastableExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<castable expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, CASTABLE_EXPR, "<castable expr>");
     r = CastExpr(b, l + 1);
     r = r && CastableExpr_1(b, l + 1);
-    exit_section_(b, l, m, CASTABLE_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1521,11 +1504,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CastableOptionalExpr")) return false;
     if (!nextTokenIs(b, K_CASTABLE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = CastableOperator(b, l + 1);
     p = r; // pin = 1
     r = r && SingleType(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1535,12 +1518,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CatchClause")) return false;
     if (!nextTokenIs(b, K_CATCH)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, CATCH_CLAUSE, null);
     r = consumeToken(b, K_CATCH);
     p = r; // pin = 1
     r = r && report_error_(b, CatchClause_1(b, l + 1));
     r = p && CatchClauseExpression(b, l + 1) && r;
-    exit_section_(b, l, m, CATCH_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1581,10 +1564,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean CatchErrorList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CatchErrorList")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<catch error list>");
+    Marker m = enter_section_(b, l, _NONE_, CATCH_ERROR_LIST, "<catch error list>");
     r = NameTest(b, l + 1);
     r = r && CatchErrorList_1(b, l + 1);
-    exit_section_(b, l, m, CATCH_ERROR_LIST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1617,12 +1600,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CommentTest")) return false;
     if (!nextTokenIs(b, K_COMMENT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, COMMENT_TEST, null);
     r = consumeToken(b, K_COMMENT);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, COMMENT_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1631,13 +1614,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean CommonContent(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CommonContent")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<common content>");
+    Marker m = enter_section_(b, l, _NONE_, COMMON_CONTENT, "<common content>");
     r = consumeToken(b, PREDEFINEDENTITYREF);
     if (!r) r = consumeToken(b, CHARREF);
     if (!r) r = consumeToken(b, DBL_L_C_BRACE);
     if (!r) r = consumeToken(b, DBL_R_C_BRACE);
     if (!r) r = EnclosedExpr(b, l + 1);
-    exit_section_(b, l, m, COMMON_CONTENT, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1871,7 +1854,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "text" "{" Expr "}"
+  // "text" "{" Expr? "}"
   public static boolean CompTextConstructor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CompTextConstructor")) return false;
     if (!nextTokenIs(b, K_TEXT)) return false;
@@ -1879,10 +1862,17 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, K_TEXT);
     r = r && consumeToken(b, L_C_BRACE);
-    r = r && Expr(b, l + 1);
+    r = r && CompTextConstructor_2(b, l + 1);
     r = r && consumeToken(b, R_C_BRACE);
     exit_section_(b, m, COMP_TEXT_CONSTRUCTOR, r);
     return r;
+  }
+
+  // Expr?
+  private static boolean CompTextConstructor_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CompTextConstructor_2")) return false;
+    Expr(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1903,10 +1893,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ComparisonExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ComparisonExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<comparison expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, COMPARISON_EXPR, "<comparison expr>");
     r = StringConcatExpr(b, l + 1);
     r = r && ComparisonExpr_1(b, l + 1);
-    exit_section_(b, l, m, COMPARISON_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1922,11 +1912,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean ComparisonOptionalExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ComparisonOptionalExpr")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = Comparison(b, l + 1);
     p = r; // pin = 1
     r = r && StringConcatExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -1960,7 +1950,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ComputedConstructor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ComputedConstructor")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<computed constructor>");
+    Marker m = enter_section_(b, l, _NONE_, COMPUTED_CONSTRUCTOR, "<computed constructor>");
     r = CompDocConstructor(b, l + 1);
     if (!r) r = CompElemConstructor(b, l + 1);
     if (!r) r = CompMapConstructor(b, l + 1);
@@ -1975,7 +1965,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!r) r = MarklogicCompBooleanNodeConstructor(b, l + 1);
     if (!r) r = MarklogicCompNullNodeConstructor(b, l + 1);
     if (!r) r = MarklogicCompArrayNodeConstructor(b, l + 1);
-    exit_section_(b, l, m, COMPUTED_CONSTRUCTOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1997,13 +1987,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ConstructionDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, CONSTRUCTION_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_CONSTRUCTION);
     p = r; // pin = 2
     r = r && report_error_(b, ConstructionDecl_2(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, CONSTRUCTION_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2024,10 +2014,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean Constructor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Constructor")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<constructor>");
+    Marker m = enter_section_(b, l, _NONE_, CONSTRUCTOR, "<constructor>");
     r = DirectConstructor(b, l + 1);
     if (!r) r = ComputedConstructor(b, l + 1);
-    exit_section_(b, l, m, CONSTRUCTOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2036,9 +2026,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ContentExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ContentExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<content expr>");
+    Marker m = enter_section_(b, l, _NONE_, CONTENT_EXPR, "<content expr>");
     r = Expr(b, l + 1);
-    exit_section_(b, l, m, CONTENT_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2048,7 +2038,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ContextItemDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, CONTEXT_ITEM_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_CONTEXT);
     p = r; // pin = 2
@@ -2056,7 +2046,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, ContextItemDecl_3(b, l + 1)) && r;
     r = p && report_error_(b, ContextItemDecl_4(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, CONTEXT_ITEM_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2136,7 +2126,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CopyNamespacesDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, COPY_NAMESPACES_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_COPY_NAMESPACES);
     p = r; // pin = 2
@@ -2144,7 +2134,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, consumeToken(b, COMMA)) && r;
     r = p && report_error_(b, InheritMode(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, COPY_NAMESPACES_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2153,12 +2143,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean CountClause(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CountClause")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<count clause>");
+    Marker m = enter_section_(b, l, _NONE_, COUNT_CLAUSE, "<count clause>");
     r = consumeToken(b, K_COUNT);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, DOLLAR_SIGN));
     r = p && VarName(b, l + 1) && r;
-    exit_section_(b, l, m, COUNT_CLAUSE, r, p, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, p, FLWORExprRecover_parser_);
     return r || p;
   }
 
@@ -2168,9 +2158,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "CurrentItem")) return false;
     if (!nextTokenIs(b, "<current item>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<current item>");
+    Marker m = enter_section_(b, l, _NONE_, CURRENT_ITEM, "<current item>");
     r = VarName(b, l + 1);
-    exit_section_(b, l, m, CURRENT_ITEM, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2200,13 +2190,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "DecimalFormatDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, DECIMAL_FORMAT_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && DecimalFormatDecl_1(b, l + 1);
     p = r; // pin = 2
     r = r && report_error_(b, DecimalFormatDecl_2(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, DECIMAL_FORMAT_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2273,14 +2263,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "DefaultCollationDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, DEFAULT_COLLATION_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_DEFAULT);
     r = r && consumeToken(b, K_COLLATION);
     p = r; // pin = 3
     r = r && report_error_(b, URILiteral(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, DEFAULT_COLLATION_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2290,14 +2280,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "DefaultElementNamespaceDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, DEFAULT_ELEMENT_NAMESPACE_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_DEFAULT);
     r = r && consumeToken(b, K_ELEMENT);
     p = r; // pin = 3
     r = r && report_error_(b, consumeToken(b, K_NAMESPACE));
     r = p && URILiteral(b, l + 1) && r;
-    exit_section_(b, l, m, DEFAULT_ELEMENT_NAMESPACE_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2307,14 +2297,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "DefaultFunctionNamespaceDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, DEFAULT_FUNCTION_NAMESPACE_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_DEFAULT);
     r = r && consumeToken(b, K_FUNCTION);
     p = r; // pin = 3
     r = r && report_error_(b, consumeToken(b, K_NAMESPACE));
     r = p && URILiteral(b, l + 1) && r;
-    exit_section_(b, l, m, DEFAULT_FUNCTION_NAMESPACE_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2385,14 +2375,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // DirAttribute*
   public static boolean DirAttributeList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "DirAttributeList")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<dir attribute list>");
+    Marker m = enter_section_(b, l, _NONE_, DIR_ATTRIBUTE_LIST, "<dir attribute list>");
     int c = current_position_(b);
     while (true) {
       if (!DirAttribute(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "DirAttributeList", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, l, m, DIR_ATTRIBUTE_LIST, true, false, null);
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -2427,10 +2417,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean DirAttributeValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "DirAttributeValue")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<dir attribute value>");
+    Marker m = enter_section_(b, l, _NONE_, DIR_ATTRIBUTE_VALUE, "<dir attribute value>");
     r = DirAttributeValue_0(b, l + 1);
     if (!r) r = DirAttributeValue_1(b, l + 1);
-    exit_section_(b, l, m, DIR_ATTRIBUTE_VALUE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2522,14 +2512,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // DirCommentChar*
   public static boolean DirCommentContents(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "DirCommentContents")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<dir comment contents>");
+    Marker m = enter_section_(b, l, _NONE_, DIR_COMMENT_CONTENTS, "<dir comment contents>");
     int c = current_position_(b);
     while (true) {
       if (!consumeToken(b, DIRCOMMENTCHAR)) break;
       if (!empty_element_parsed_guard_(b, "DirCommentContents", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, l, m, DIR_COMMENT_CONTENTS, true, false, null);
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -2554,12 +2544,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean DirElemContent(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "DirElemContent")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<dir elem content>");
+    Marker m = enter_section_(b, l, _NONE_, DIR_ELEM_CONTENT, "<dir elem content>");
     r = DirectConstructor(b, l + 1);
     if (!r) r = CDataSection(b, l + 1);
     if (!r) r = CommonContent(b, l + 1);
     if (!r) r = consumeToken(b, ELEMENTCONTENTCHAR);
-    exit_section_(b, l, m, DIR_ELEM_CONTENT, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2600,14 +2590,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // DirPIContentChar*
   public static boolean DirPIContents(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "DirPIContents")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<dir pi contents>");
+    Marker m = enter_section_(b, l, _NONE_, DIR_PI_CONTENTS, "<dir pi contents>");
     int c = current_position_(b);
     while (true) {
       if (!consumeToken(b, DIRPICONTENTCHAR)) break;
       if (!empty_element_parsed_guard_(b, "DirPIContents", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, l, m, DIR_PI_CONTENTS, true, false, null);
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -2618,11 +2608,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean DirectConstructor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "DirectConstructor")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<direct constructor>");
+    Marker m = enter_section_(b, l, _NONE_, DIRECT_CONSTRUCTOR, "<direct constructor>");
     r = DirElemConstructor(b, l + 1);
     if (!r) r = DirCommentConstructor(b, l + 1);
     if (!r) r = DirPIConstructor(b, l + 1);
-    exit_section_(b, l, m, DIRECT_CONSTRUCTOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2632,13 +2622,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "DocumentTest")) return false;
     if (!nextTokenIs(b, K_DOCUMENT_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, DOCUMENT_TEST, null);
     r = consumeToken(b, K_DOCUMENT_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, DocumentTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, DOCUMENT_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2679,9 +2669,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ElementDeclaration")) return false;
     if (!nextTokenIs(b, "<element declaration>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<element declaration>");
+    Marker m = enter_section_(b, l, _NONE_, ELEMENT_DECLARATION, "<element declaration>");
     r = ElementName(b, l + 1);
-    exit_section_(b, l, m, ELEMENT_DECLARATION, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2691,9 +2681,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ElementName")) return false;
     if (!nextTokenIs(b, "<element name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<element name>");
+    Marker m = enter_section_(b, l, _NONE_, ELEMENT_NAME, "<element name>");
     r = EQName(b, l + 1);
-    exit_section_(b, l, m, ELEMENT_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2702,10 +2692,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ElementNameOrWildcard(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ElementNameOrWildcard")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<element name or wildcard>");
+    Marker m = enter_section_(b, l, _NONE_, ELEMENT_NAME_OR_WILDCARD, "<element name or wildcard>");
     r = ElementName(b, l + 1);
     if (!r) r = consumeToken(b, STAR_SIGN);
-    exit_section_(b, l, m, ELEMENT_NAME_OR_WILDCARD, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2715,13 +2705,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ElementTest")) return false;
     if (!nextTokenIs(b, K_ELEMENT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ELEMENT_TEST, null);
     r = consumeToken(b, K_ELEMENT);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, ElementTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, ELEMENT_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2775,7 +2765,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "EmptyOrderDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, EMPTY_ORDER_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_DEFAULT);
     r = r && consumeToken(b, K_ORDER);
@@ -2783,7 +2773,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = r && report_error_(b, consumeToken(b, K_EMPTY));
     r = p && report_error_(b, EmptyOrderDecl_4(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, EMPTY_ORDER_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2804,12 +2794,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "EnclosedExpr")) return false;
     if (!nextTokenIs(b, L_C_BRACE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ENCLOSED_EXPR, null);
     r = consumeToken(b, L_C_BRACE);
     p = r; // pin = 1
     r = r && report_error_(b, Expr(b, l + 1));
     r = p && consumeToken(b, R_C_BRACE) && r;
-    exit_section_(b, l, m, ENCLOSED_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2819,10 +2809,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "EqualityComp")) return false;
     if (!nextTokenIs(b, "<equality comp>", NOT_EQUAL, EQUAL)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<equality comp>");
+    Marker m = enter_section_(b, l, _NONE_, EQUALITY_COMP, "<equality comp>");
     r = consumeToken(b, EQUAL);
     if (!r) r = consumeToken(b, NOT_EQUAL);
-    exit_section_(b, l, m, EQUALITY_COMP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2831,9 +2821,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean EscapeApos(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EscapeApos")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<escape apos>");
+    Marker m = enter_section_(b, l, _NONE_, ESCAPE_APOS, "<escape apos>");
     r = consumeToken(b, "''");
-    exit_section_(b, l, m, ESCAPE_APOS, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2842,9 +2832,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean EscapeQuot(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "EscapeQuot")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<escape quot>");
+    Marker m = enter_section_(b, l, _NONE_, ESCAPE_QUOT, "<escape quot>");
     r = consumeToken(b, "\"\"");
-    exit_section_(b, l, m, ESCAPE_QUOT, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2853,11 +2843,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean Expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expr")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<expr>");
+    Marker m = enter_section_(b, l, _NONE_, EXPR, "<expr>");
     r = ExprSingle(b, l + 1);
     p = r; // pin = 1
     r = r && Expr_1(b, l + 1);
-    exit_section_(b, l, m, EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2889,7 +2879,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ExprSingle(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ExprSingle")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<expr single>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, EXPR_SINGLE, "<expr single>");
     r = FLWORExpr(b, l + 1);
     if (!r) r = QuantifiedExpr(b, l + 1);
     if (!r) r = SwitchExpr(b, l + 1);
@@ -2902,7 +2892,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!r) r = ReplaceExpr(b, l + 1);
     if (!r) r = TransformExpr(b, l + 1);
     if (!r) r = OrExpr(b, l + 1);
-    exit_section_(b, l, m, EXPR_SINGLE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2912,11 +2902,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ExprSingleAfterComma")) return false;
     if (!nextTokenIs(b, COMMA)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, COMMA);
     p = r; // pin = 1
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2926,13 +2916,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ExtensionExpr")) return false;
     if (!nextTokenIs(b, PRAGMA_BEGIN)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, EXTENSION_EXPR, null);
     r = ExtensionExpr_0(b, l + 1);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, L_C_BRACE));
     r = p && report_error_(b, ExtensionExpr_2(b, l + 1)) && r;
     r = p && consumeToken(b, R_C_BRACE) && r;
-    exit_section_(b, l, m, EXTENSION_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2965,11 +2955,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ExternalVarPart")) return false;
     if (!nextTokenIs(b, K_EXTERNAL)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, EXTERNAL_VAR_PART, null);
     r = consumeToken(b, K_EXTERNAL);
     p = r; // pin = 1
     r = r && ExternalVarPart_1(b, l + 1);
-    exit_section_(b, l, m, EXTERNAL_VAR_PART, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -2997,12 +2987,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "FLWORExpr")) return false;
     if (!nextTokenIs(b, "<flwor expr>", K_FOR, K_LET)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<flwor expr>");
+    Marker m = enter_section_(b, l, _NONE_, FLWOR_EXPR, "<flwor expr>");
     r = InitialClause(b, l + 1);
     p = r; // pin = 1
     r = r && report_error_(b, FLWORExpr_1(b, l + 1));
     r = p && ReturnClause(b, l + 1) && r;
-    exit_section_(b, l, m, FLWOR_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3023,9 +3013,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean FLWORExprRecover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FLWORExprRecover")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NOT_, null);
+    Marker m = enter_section_(b, l, _NOT_);
     r = !FLWORExprRecover_0(b, l + 1);
-    exit_section_(b, l, m, null, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3071,11 +3061,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ForBinding")) return false;
     if (!nextTokenIs(b, DOLLAR_SIGN)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, FOR_BINDING, null);
     r = consumeToken(b, DOLLAR_SIGN);
     p = r; // pin = 1
     r = r && ForBindingDetails(b, l + 1);
-    exit_section_(b, l, m, FOR_BINDING, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3084,14 +3074,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean ForBindingDetails(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ForBindingDetails")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = VarName(b, l + 1);
     r = r && ForBindingDetails_1(b, l + 1);
     r = r && ForBindingDetails_2(b, l + 1);
     r = r && ForBindingDetails_3(b, l + 1);
     r = r && consumeToken(b, K_IN);
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, null, r, false, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, false, FLWORExprRecover_parser_);
     return r;
   }
 
@@ -3122,12 +3112,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ForClause")) return false;
     if (!nextTokenIs(b, K_FOR)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, FOR_CLAUSE, null);
     r = consumeToken(b, K_FOR);
     r = r && ForBinding(b, l + 1);
     p = r; // pin = 2
     r = r && ForClause_2(b, l + 1);
-    exit_section_(b, l, m, FOR_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3259,10 +3249,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ForwardStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ForwardStep")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<forward step>");
+    Marker m = enter_section_(b, l, _NONE_, FORWARD_STEP, "<forward step>");
     r = FullForwardStep(b, l + 1);
     if (!r) r = AbbrevForwardStep(b, l + 1);
-    exit_section_(b, l, m, FORWARD_STEP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3271,11 +3261,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean FullForwardStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FullForwardStep")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = ForwardAxis(b, l + 1);
     p = r; // pin = 1
     r = r && NodeTest(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3284,11 +3274,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean FullReverseStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FullReverseStep")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = ReverseAxis(b, l + 1);
     p = r; // pin = 1
     r = r && NodeTest(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3322,10 +3312,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "FunctionCall")) return false;
     if (!nextTokenIs(b, "<function call>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<function call>");
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_CALL, "<function call>");
     r = FunctionName(b, l + 1);
     r = r && ArgumentList(b, l + 1);
-    exit_section_(b, l, m, FUNCTION_CALL, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3335,7 +3325,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "FunctionDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && FunctionDecl_1(b, l + 1);
     r = r && consumeToken(b, K_FUNCTION);
@@ -3345,7 +3335,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, FunctionDecl_5(b, l + 1)) && r;
     r = p && report_error_(b, FunctionDecl_6(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, FUNCTION_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3407,10 +3397,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean FunctionItemExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunctionItemExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<function item expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, FUNCTION_ITEM_EXPR, "<function item expr>");
     r = NamedFunctionRef(b, l + 1);
     if (!r) r = InlineFunctionExpr(b, l + 1);
-    exit_section_(b, l, m, FUNCTION_ITEM_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3432,11 +3422,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "FunctionName")) return false;
     if (!nextTokenIs(b, "<function name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<function name>");
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_NAME, "<function name>");
     r = FunctionName_0(b, l + 1);
     if (!r) r = FunctionLocalName(b, l + 1);
     if (!r) r = consumeToken(b, URIQUALIFIEDNAME);
-    exit_section_(b, l, m, FUNCTION_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3444,12 +3434,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   private static boolean FunctionName_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunctionName_0")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = Prefix(b, l + 1);
     r = r && consumeToken(b, COLON);
     p = r; // pin = 2
     r = r && FunctionLocalName(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3459,10 +3449,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "FunctionTest")) return false;
     if (!nextTokenIs(b, "<function test>", PERCENT, K_FUNCTION)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<function test>");
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_TEST, "<function test>");
     r = FunctionTest_0(b, l + 1);
     r = r && FunctionTest_1(b, l + 1);
-    exit_section_(b, l, m, FUNCTION_TEST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3507,12 +3497,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "GeneralItemType")) return false;
     if (!nextTokenIs(b, K_ITEM)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, GENERAL_ITEM_TYPE, null);
     r = consumeToken(b, K_ITEM);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, GENERAL_ITEM_TYPE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3521,12 +3511,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean GroupByClause(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "GroupByClause")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<group by clause>");
+    Marker m = enter_section_(b, l, _NONE_, GROUP_BY_CLAUSE, "<group by clause>");
     r = consumeToken(b, K_GROUP);
     r = r && consumeToken(b, K_BY);
     p = r; // pin = 2
     r = r && GroupingSpecList(b, l + 1);
-    exit_section_(b, l, m, GROUP_BY_CLAUSE, r, p, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, p, FLWORExprRecover_parser_);
     return r || p;
   }
 
@@ -3643,7 +3633,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "IfExpr")) return false;
     if (!nextTokenIs(b, K_IF)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, IF_EXPR, null);
     r = consumeToken(b, K_IF);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, L_PAR));
@@ -3653,7 +3643,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, ExprSingle(b, l + 1)) && r;
     r = p && report_error_(b, consumeToken(b, K_ELSE)) && r;
     r = p && ExprSingle(b, l + 1) && r;
-    exit_section_(b, l, m, IF_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3676,10 +3666,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "InheritMode")) return false;
     if (!nextTokenIs(b, "<inherit mode>", K_INHERIT, K_NO_INHERIT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<inherit mode>");
+    Marker m = enter_section_(b, l, _NONE_, INHERIT_MODE, "<inherit mode>");
     r = consumeToken(b, K_INHERIT);
     if (!r) r = consumeToken(b, K_NO_INHERIT);
-    exit_section_(b, l, m, INHERIT_MODE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3703,13 +3693,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "InlineFunctionExpr")) return false;
     if (!nextTokenIs(b, "<inline function expr>", PERCENT, K_FUNCTION)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<inline function expr>");
+    Marker m = enter_section_(b, l, _NONE_, INLINE_FUNCTION_EXPR, "<inline function expr>");
     r = InlineFunctionExpr_0(b, l + 1);
     r = r && consumeToken(b, K_FUNCTION);
     r = r && ParamList(b, l + 1);
     r = r && InlineFunctionExpr_3(b, l + 1);
     r = r && FunctionBody(b, l + 1);
-    exit_section_(b, l, m, INLINE_FUNCTION_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3777,11 +3767,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean InsertExprTargetChoice(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InsertExprTargetChoice")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<insert expr target choice>");
+    Marker m = enter_section_(b, l, _NONE_, INSERT_EXPR_TARGET_CHOICE, "<insert expr target choice>");
     r = InsertExprTargetChoice_0(b, l + 1);
     if (!r) r = consumeToken(b, K_AFTER);
     if (!r) r = consumeToken(b, K_BEFORE);
-    exit_section_(b, l, m, INSERT_EXPR_TARGET_CHOICE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3844,11 +3834,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "InstanceOfOptionalExpr")) return false;
     if (!nextTokenIs(b, K_INSTANCE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = InstanceOfOperator(b, l + 1);
     p = r; // pin = 1
     r = r && SequenceType(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3857,10 +3847,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean InstanceofExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "InstanceofExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<instanceof expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, INSTANCEOF_EXPR, "<instanceof expr>");
     r = TreatExpr(b, l + 1);
     r = r && InstanceofExpr_1(b, l + 1);
-    exit_section_(b, l, m, INSTANCEOF_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3891,10 +3881,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean IntersectExceptExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "IntersectExceptExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<intersect except expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, INTERSECT_EXCEPT_EXPR, "<intersect except expr>");
     r = InstanceofExpr(b, l + 1);
     r = r && IntersectExceptExpr_1(b, l + 1);
-    exit_section_(b, l, m, INTERSECT_EXCEPT_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3916,10 +3906,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "IntersectExceptOperator")) return false;
     if (!nextTokenIs(b, "<intersect except operator>", K_EXCEPT, K_INTERSECT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<intersect except operator>");
+    Marker m = enter_section_(b, l, _NONE_, INTERSECT_EXCEPT_OPERATOR, "<intersect except operator>");
     r = consumeToken(b, K_INTERSECT);
     if (!r) r = consumeToken(b, K_EXCEPT);
-    exit_section_(b, l, m, INTERSECT_EXCEPT_OPERATOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3929,11 +3919,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "IntersectExceptOptionalExpr")) return false;
     if (!nextTokenIs(b, "", K_EXCEPT, K_INTERSECT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = IntersectExceptOperator(b, l + 1);
     p = r; // pin = 1
     r = r && InstanceofExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -3942,13 +3932,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ItemType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ItemType")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<item type>");
+    Marker m = enter_section_(b, l, _NONE_, ITEM_TYPE, "<item type>");
     r = KindTest(b, l + 1);
     if (!r) r = GeneralItemType(b, l + 1);
     if (!r) r = FunctionTest(b, l + 1);
     if (!r) r = AtomicOrUnionType(b, l + 1);
     if (!r) r = ParenthesizedItemType(b, l + 1);
-    exit_section_(b, l, m, ITEM_TYPE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -3975,7 +3965,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean KindTest(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "KindTest")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<kind test>");
+    Marker m = enter_section_(b, l, _NONE_, KIND_TEST, "<kind test>");
     r = DocumentTest(b, l + 1);
     if (!r) r = ElementTest(b, l + 1);
     if (!r) r = MapTest(b, l + 1);
@@ -3995,7 +3985,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!r) r = MarklogicBooleanNodeTest(b, l + 1);
     if (!r) r = MarklogicNullNodeTest(b, l + 1);
     if (!r) r = MarklogicArrayNodeTest(b, l + 1);
-    exit_section_(b, l, m, KIND_TEST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4004,13 +3994,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean LetBinding(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "LetBinding")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<let binding>");
+    Marker m = enter_section_(b, l, _NONE_, LET_BINDING, "<let binding>");
     r = consumeToken(b, DOLLAR_SIGN);
     r = r && VarName(b, l + 1);
     r = r && LetBinding_2(b, l + 1);
     r = r && consumeToken(b, OP_ASSIGN);
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, LET_BINDING, r, false, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, false, FLWORExprRecover_parser_);
     return r;
   }
 
@@ -4027,12 +4017,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "LetClause")) return false;
     if (!nextTokenIs(b, K_LET)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, LET_CLAUSE, null);
     r = consumeToken(b, K_LET);
     p = r; // pin = 1
     r = r && report_error_(b, LetBinding(b, l + 1));
     r = p && LetClause_2(b, l + 1) && r;
-    exit_section_(b, l, m, LET_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4065,11 +4055,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "LibraryModule")) return false;
     if (!nextTokenIs(b, K_MODULE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = ModuleDecl(b, l + 1);
     p = r; // pin = 1
     r = r && Prolog(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4078,10 +4068,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean Literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Literal")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<literal>");
+    Marker m = enter_section_(b, l, _NONE_, LITERAL, "<literal>");
     r = NumericLiteral(b, l + 1);
     if (!r) r = consumeToken(b, STRINGLITERAL);
-    exit_section_(b, l, m, LITERAL, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4102,11 +4092,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean MainModule(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MainModule")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = Prolog(b, l + 1);
     p = r; // pin = 1
     r = r && QueryBody(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4115,11 +4105,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean MapEntry(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MapEntry")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<map entry>");
+    Marker m = enter_section_(b, l, _NONE_, MAP_ENTRY, "<map entry>");
     r = ExprSingle(b, l + 1);
     r = r && consumeToken(b, OP_ASSIGN);
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, MAP_ENTRY, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4128,11 +4118,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean MapEntryList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MapEntryList")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<map entry list>");
+    Marker m = enter_section_(b, l, _NONE_, MAP_ENTRY_LIST, "<map entry list>");
     r = MapEntry(b, l + 1);
     r = r && MapEntryList_1(b, l + 1);
     r = r && MapEntryList_2(b, l + 1);
-    exit_section_(b, l, m, MAP_ENTRY_LIST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4172,13 +4162,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MapTest")) return false;
     if (!nextTokenIs(b, K_MAP)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MAP_TEST, null);
     r = consumeToken(b, K_MAP);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, MapTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, MAP_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4248,13 +4238,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicArrayNodeTest")) return false;
     if (!nextTokenIs(b, K_ARRAY_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_ARRAY_NODE_TEST, null);
     r = consumeToken(b, K_ARRAY_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, MarklogicArrayNodeTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, MARKLOGIC_ARRAY_NODE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4281,12 +4271,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicBinaryTest")) return false;
     if (!nextTokenIs(b, K_BINARY)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_BINARY_TEST, null);
     r = consumeToken(b, K_BINARY);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, MARKLOGIC_BINARY_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4296,13 +4286,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicBooleanNodeTest")) return false;
     if (!nextTokenIs(b, K_BOOLEAN_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_BOOLEAN_NODE_TEST, null);
     r = consumeToken(b, K_BOOLEAN_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, MarklogicBooleanNodeTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, MARKLOGIC_BOOLEAN_NODE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4339,7 +4329,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "array-node" "{" Expr "}"
+  // "array-node" "{" Expr? "}"
   public static boolean MarklogicCompArrayNodeConstructor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MarklogicCompArrayNodeConstructor")) return false;
     if (!nextTokenIs(b, K_ARRAY_NODE)) return false;
@@ -4347,10 +4337,17 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, K_ARRAY_NODE);
     r = r && consumeToken(b, L_C_BRACE);
-    r = r && Expr(b, l + 1);
+    r = r && MarklogicCompArrayNodeConstructor_2(b, l + 1);
     r = r && consumeToken(b, R_C_BRACE);
     exit_section_(b, m, MARKLOGIC_COMP_ARRAY_NODE_CONSTRUCTOR, r);
     return r;
+  }
+
+  // Expr?
+  private static boolean MarklogicCompArrayNodeConstructor_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MarklogicCompArrayNodeConstructor_2")) return false;
+    Expr(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -4413,7 +4410,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "object-node" "{" ObjectPropertyList "}"
+  // "object-node" "{" ObjectPropertyList? "}"
   public static boolean MarklogicCompObjectNodeConstructor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MarklogicCompObjectNodeConstructor")) return false;
     if (!nextTokenIs(b, K_OBJECT_NODE)) return false;
@@ -4421,10 +4418,17 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, K_OBJECT_NODE);
     r = r && consumeToken(b, L_C_BRACE);
-    r = r && ObjectPropertyList(b, l + 1);
+    r = r && MarklogicCompObjectNodeConstructor_2(b, l + 1);
     r = r && consumeToken(b, R_C_BRACE);
     exit_section_(b, m, MARKLOGIC_COMP_OBJECT_NODE_CONSTRUCTOR, r);
     return r;
+  }
+
+  // ObjectPropertyList?
+  private static boolean MarklogicCompObjectNodeConstructor_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MarklogicCompObjectNodeConstructor_2")) return false;
+    ObjectPropertyList(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -4433,12 +4437,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicNamespaceAxis")) return false;
     if (!nextTokenIs(b, K_NAMESPACE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_NAMESPACE_AXIS, null);
     r = consumeToken(b, K_NAMESPACE);
     r = r && consumeToken(b, COLON_COLON);
     p = r; // pin = 2
     r = r && NodeTest(b, l + 1);
-    exit_section_(b, l, m, MARKLOGIC_NAMESPACE_AXIS, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4448,13 +4452,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicNullNodeTest")) return false;
     if (!nextTokenIs(b, K_NULL_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_NULL_NODE_TEST, null);
     r = consumeToken(b, K_NULL_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, MarklogicNullNodeTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, MARKLOGIC_NULL_NODE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4481,13 +4485,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicNumberNodeTest")) return false;
     if (!nextTokenIs(b, K_NUMBER_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_NUMBER_NODE_TEST, null);
     r = consumeToken(b, K_NUMBER_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, MarklogicNumberNodeTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, MARKLOGIC_NUMBER_NODE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4514,13 +4518,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "MarklogicObjectNodeTest")) return false;
     if (!nextTokenIs(b, K_OBJECT_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MARKLOGIC_OBJECT_NODE_TEST, null);
     r = consumeToken(b, K_OBJECT_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, MarklogicObjectNodeTest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, MARKLOGIC_OBJECT_NODE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4652,7 +4656,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ModuleDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModuleDecl")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<module decl>");
+    Marker m = enter_section_(b, l, _NONE_, MODULE_DECL, "<module decl>");
     r = consumeToken(b, K_MODULE);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, K_NAMESPACE));
@@ -4660,29 +4664,28 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, consumeToken(b, EQUAL)) && r;
     r = p && report_error_(b, URILiteral(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, MODULE_DECL, r, p, ModuleDeclRecover_parser_);
+    exit_section_(b, l, m, r, p, ModuleDeclRecover_parser_);
     return r || p;
   }
 
   /* ********************************************************** */
-  // !('declare' | 'import' | ';')
+  // !('declare' | 'import')
   static boolean ModuleDeclRecover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModuleDeclRecover")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NOT_, null);
+    Marker m = enter_section_(b, l, _NOT_);
     r = !ModuleDeclRecover_0(b, l + 1);
-    exit_section_(b, l, m, null, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // 'declare' | 'import' | ';'
+  // 'declare' | 'import'
   private static boolean ModuleDeclRecover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ModuleDeclRecover_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, K_DECLARE);
     if (!r) r = consumeToken(b, K_IMPORT);
-    if (!r) r = consumeToken(b, SEMICOLON);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -4693,7 +4696,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ModuleImport")) return false;
     if (!nextTokenIs(b, K_IMPORT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, MODULE_IMPORT, null);
     r = consumeToken(b, K_IMPORT);
     r = r && consumeToken(b, K_MODULE);
     p = r; // pin = 2
@@ -4701,7 +4704,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, ModuleImportNamespace(b, l + 1)) && r;
     r = p && report_error_(b, ModuleImport_4(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, MODULE_IMPORT, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4818,10 +4821,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean MultiplicativeExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MultiplicativeExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<multiplicative expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, MULTIPLICATIVE_EXPR, "<multiplicative expr>");
     r = UnionExpr(b, l + 1);
     r = r && MultiplicativeExpr_1(b, l + 1);
-    exit_section_(b, l, m, MULTIPLICATIVE_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4842,12 +4845,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean MultiplicativeOperator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MultiplicativeOperator")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<multiplicative operator>");
+    Marker m = enter_section_(b, l, _NONE_, MULTIPLICATIVE_OPERATOR, "<multiplicative operator>");
     r = consumeToken(b, STAR_SIGN);
     if (!r) r = consumeToken(b, K_DIV);
     if (!r) r = consumeToken(b, K_IDIV);
     if (!r) r = consumeToken(b, K_MOD);
-    exit_section_(b, l, m, MULTIPLICATIVE_OPERATOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4856,11 +4859,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean MultiplicativeOptionalExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MultiplicativeOptionalExpr")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = MultiplicativeOperator(b, l + 1);
     p = r; // pin = 1
     r = r && UnionExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4869,10 +4872,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean NameTest(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NameTest")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<name test>");
+    Marker m = enter_section_(b, l, _NONE_, NAME_TEST, "<name test>");
     r = Wildcard(b, l + 1);
     if (!r) r = EQName(b, l + 1);
-    exit_section_(b, l, m, NAME_TEST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4882,11 +4885,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "NamedFunctionRef")) return false;
     if (!nextTokenIs(b, "<named function ref>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<named function ref>");
+    Marker m = enter_section_(b, l, _NONE_, NAMED_FUNCTION_REF, "<named function ref>");
     r = FunctionName(b, l + 1);
     r = r && consumeToken(b, HASH);
     r = r && FunctionArity(b, l + 1);
-    exit_section_(b, l, m, NAMED_FUNCTION_REF, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4896,7 +4899,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "NamespaceDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, NAMESPACE_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_NAMESPACE);
     p = r; // pin = 2
@@ -4904,7 +4907,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, consumeToken(b, EQUAL)) && r;
     r = p && report_error_(b, URILiteral(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, NAMESPACE_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4914,12 +4917,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "NamespaceNodeTest")) return false;
     if (!nextTokenIs(b, K_NAMESPACE_NODE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, NAMESPACE_NODE_TEST, null);
     r = consumeToken(b, K_NAMESPACE_NODE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, NAMESPACE_NODE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -4940,9 +4943,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean NewNameExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NewNameExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<new name expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, NEW_NAME_EXPR, "<new name expr>");
     r = ExprSingle(b, l + 1);
-    exit_section_(b, l, m, NEW_NAME_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4952,9 +4955,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "NextItem")) return false;
     if (!nextTokenIs(b, "<next item>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<next item>");
+    Marker m = enter_section_(b, l, _NONE_, NEXT_ITEM, "<next item>");
     r = VarName(b, l + 1);
-    exit_section_(b, l, m, NEXT_ITEM, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4963,11 +4966,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean NodeComp(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NodeComp")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<node comp>");
+    Marker m = enter_section_(b, l, _NONE_, NODE_COMP, "<node comp>");
     r = consumeToken(b, K_IS);
     if (!r) r = consumeToken(b, NODECOMP_LT);
     if (!r) r = consumeToken(b, NODECOMP_GT);
-    exit_section_(b, l, m, NODE_COMP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4976,10 +4979,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean NodeTest(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NodeTest")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<node test>");
+    Marker m = enter_section_(b, l, _NONE_, NODE_TEST, "<node test>");
     r = KindTest(b, l + 1);
     if (!r) r = NameTest(b, l + 1);
-    exit_section_(b, l, m, NODE_TEST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -4988,11 +4991,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean NumericLiteral(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NumericLiteral")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<numeric literal>");
+    Marker m = enter_section_(b, l, _NONE_, NUMERIC_LITERAL, "<numeric literal>");
     r = consumeToken(b, INTEGERLITERAL);
     if (!r) r = consumeToken(b, DECIMALLITERAL);
     if (!r) r = consumeToken(b, DOUBLELITERAL);
-    exit_section_(b, l, m, NUMERIC_LITERAL, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5001,11 +5004,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ObjectProperty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectProperty")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<object property>");
+    Marker m = enter_section_(b, l, _NONE_, OBJECT_PROPERTY, "<object property>");
     r = ExprSingle(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, OBJECT_PROPERTY, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5014,11 +5017,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ObjectPropertyList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectPropertyList")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<object property list>");
+    Marker m = enter_section_(b, l, _NONE_, OBJECT_PROPERTY_LIST, "<object property list>");
     r = ObjectProperty(b, l + 1);
     r = r && ObjectPropertyList_1(b, l + 1);
     r = r && ObjectPropertyList_2(b, l + 1);
-    exit_section_(b, l, m, OBJECT_PROPERTY_LIST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5057,11 +5060,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean OccurrenceIndicator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OccurrenceIndicator")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<occurrence indicator>");
+    Marker m = enter_section_(b, l, _NONE_, OCCURRENCE_INDICATOR, "<occurrence indicator>");
     r = consumeToken(b, QUESTIONMARK);
     if (!r) r = consumeToken(b, STAR_SIGN);
     if (!r) r = consumeToken(b, OP_PLUS);
-    exit_section_(b, l, m, OCCURRENCE_INDICATOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5071,14 +5074,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "OptionDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, OPTION_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_OPTION);
     p = r; // pin = 2
     r = r && report_error_(b, EQName(b, l + 1));
     r = p && report_error_(b, consumeToken(b, STRINGLITERAL)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, OPTION_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5088,11 +5091,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "OptionalArgumentAfterComma")) return false;
     if (!nextTokenIs(b, COMMA)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, COMMA);
     p = r; // pin = 1
     r = r && Argument(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5101,10 +5104,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean OrExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OrExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<or expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, OR_EXPR, "<or expr>");
     r = AndExpr(b, l + 1);
     r = r && OrExpr_1(b, l + 1);
-    exit_section_(b, l, m, OR_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5126,11 +5129,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "OrMultipliedExpr")) return false;
     if (!nextTokenIs(b, K_OR)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = OrOperator(b, l + 1);
     p = r; // pin = 1
     r = r && AndExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5151,11 +5154,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean OrderByClause(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OrderByClause")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<order by clause>");
+    Marker m = enter_section_(b, l, _NONE_, ORDER_BY_CLAUSE, "<order by clause>");
     r = OrderByClause_0(b, l + 1);
     p = r; // pin = 1
     r = r && OrderSpecList(b, l + 1);
-    exit_section_(b, l, m, ORDER_BY_CLAUSE, r, p, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, p, FLWORExprRecover_parser_);
     return r || p;
   }
 
@@ -5276,10 +5279,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean OrderSpec(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OrderSpec")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<order spec>");
+    Marker m = enter_section_(b, l, _NONE_, ORDER_SPEC, "<order spec>");
     r = ExprSingle(b, l + 1);
     r = r && OrderModifier(b, l + 1);
-    exit_section_(b, l, m, ORDER_SPEC, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5288,10 +5291,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean OrderSpecList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OrderSpecList")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<order spec list>");
+    Marker m = enter_section_(b, l, _NONE_, ORDER_SPEC_LIST, "<order spec list>");
     r = OrderSpec(b, l + 1);
     r = r && OrderSpecList_1(b, l + 1);
-    exit_section_(b, l, m, ORDER_SPEC_LIST, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5324,13 +5327,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "OrderedExpr")) return false;
     if (!nextTokenIs(b, K_ORDERED)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ORDERED_EXPR, null);
     r = consumeToken(b, K_ORDERED);
     r = r && consumeToken(b, L_C_BRACE);
     p = r; // pin = 2
     r = r && report_error_(b, Expr(b, l + 1));
     r = p && consumeToken(b, R_C_BRACE) && r;
-    exit_section_(b, l, m, ORDERED_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5340,13 +5343,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "OrderingModeDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, ORDERING_MODE_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && consumeToken(b, K_ORDERING);
     p = r; // pin = 2
     r = r && report_error_(b, OrderingModeDecl_2(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, ORDERING_MODE_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5367,13 +5370,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "PITest")) return false;
     if (!nextTokenIs(b, K_PI)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, PI_TEST, null);
     r = consumeToken(b, K_PI);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, PITest_2(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, PI_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5422,12 +5425,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ParamList")) return false;
     if (!nextTokenIs(b, L_PAR)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, PARAM_LIST, null);
     r = consumeToken(b, L_PAR);
     p = r; // pin = 1
     r = r && report_error_(b, ParamList_1(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, PARAM_LIST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5478,12 +5481,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ParenthesizedExpr")) return false;
     if (!nextTokenIs(b, L_PAR)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, PARENTHESIZED_EXPR, null);
     r = consumeToken(b, L_PAR);
     p = r; // pin = 1
     r = r && report_error_(b, ParenthesizedExpr_1(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, PARENTHESIZED_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5513,11 +5516,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean PathExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PathExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<path expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, PATH_EXPR, "<path expr>");
     r = RootPathExpr(b, l + 1);
     if (!r) r = RootPathOrChildExpr(b, l + 1);
     if (!r) r = RelativePathExpr(b, l + 1);
-    exit_section_(b, l, m, PATH_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5540,10 +5543,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean PostfixExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PostfixExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<postfix expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, POSTFIX_EXPR, "<postfix expr>");
     r = PrimaryExpr(b, l + 1);
     r = r && PostfixExpr_1(b, l + 1);
-    exit_section_(b, l, m, POSTFIX_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5576,14 +5579,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "Pragma")) return false;
     if (!nextTokenIs(b, PRAGMA_BEGIN)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, PRAGMA, null);
     r = consumeToken(b, PRAGMA_BEGIN);
     p = r; // pin = 1
     r = r && report_error_(b, Pragma_1(b, l + 1));
     r = p && report_error_(b, EQName(b, l + 1)) && r;
     r = p && report_error_(b, Pragma_3(b, l + 1)) && r;
     r = p && consumeToken(b, PRAGMA_END) && r;
-    exit_section_(b, l, m, PRAGMA, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5616,14 +5619,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // PragmaContentChar*
   public static boolean PragmaContents(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PragmaContents")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<pragma contents>");
+    Marker m = enter_section_(b, l, _NONE_, PRAGMA_CONTENTS, "<pragma contents>");
     int c = current_position_(b);
     while (true) {
       if (!consumeToken(b, PRAGMACONTENTCHAR)) break;
       if (!empty_element_parsed_guard_(b, "PragmaContents", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, l, m, PRAGMA_CONTENTS, true, false, null);
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -5633,12 +5636,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "Predicate")) return false;
     if (!nextTokenIs(b, L_BRACKET)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, PREDICATE, null);
     r = consumeToken(b, L_BRACKET);
     p = r; // pin = 1
     r = r && report_error_(b, Expr(b, l + 1));
     r = p && consumeToken(b, R_BRACKET) && r;
-    exit_section_(b, l, m, PREDICATE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5646,14 +5649,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // Predicate*
   public static boolean PredicateList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PredicateList")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<predicate list>");
+    Marker m = enter_section_(b, l, _NONE_, PREDICATE_LIST, "<predicate list>");
     int c = current_position_(b);
     while (true) {
       if (!Predicate(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "PredicateList", c)) break;
       c = current_position_(b);
     }
-    exit_section_(b, l, m, PREDICATE_LIST, true, false, null);
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -5674,9 +5677,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean PrefixExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PrefixExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<prefix expr>");
+    Marker m = enter_section_(b, l, _NONE_, PREFIX_EXPR, "<prefix expr>");
     r = Expr(b, l + 1);
-    exit_section_(b, l, m, PREFIX_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5700,10 +5703,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "PreserveMode")) return false;
     if (!nextTokenIs(b, "<preserve mode>", K_NO_PRESERVE, K_PRESERVE)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<preserve mode>");
+    Marker m = enter_section_(b, l, _NONE_, PRESERVE_MODE, "<preserve mode>");
     r = consumeToken(b, K_PRESERVE);
     if (!r) r = consumeToken(b, K_NO_PRESERVE);
-    exit_section_(b, l, m, PRESERVE_MODE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5713,9 +5716,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "PreviousItem")) return false;
     if (!nextTokenIs(b, "<previous item>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<previous item>");
+    Marker m = enter_section_(b, l, _NONE_, PREVIOUS_ITEM, "<previous item>");
     r = VarName(b, l + 1);
-    exit_section_(b, l, m, PREVIOUS_ITEM, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5732,7 +5735,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean PrimaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PrimaryExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<primary expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, PRIMARY_EXPR, "<primary expr>");
     r = Literal(b, l + 1);
     if (!r) r = VarRef(b, l + 1);
     if (!r) r = ParenthesizedExpr(b, l + 1);
@@ -5742,7 +5745,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!r) r = UnorderedExpr(b, l + 1);
     if (!r) r = Constructor(b, l + 1);
     if (!r) r = FunctionItemExpr(b, l + 1);
-    exit_section_(b, l, m, PRIMARY_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5802,14 +5805,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "QuantifiedExpr")) return false;
     if (!nextTokenIs(b, "<quantified expr>", K_EVERY, K_SOME)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<quantified expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, QUANTIFIED_EXPR, "<quantified expr>");
     r = QuantifiedExpr_0(b, l + 1);
     p = r; // pin = 1
     r = r && report_error_(b, MultiVariableBinding(b, l + 1));
     r = p && report_error_(b, QuantifiedExpr_2(b, l + 1)) && r;
     r = p && report_error_(b, consumeToken(b, K_SATISFIES)) && r;
     r = p && ExprSingle(b, l + 1) && r;
-    exit_section_(b, l, m, QUANTIFIED_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5852,9 +5855,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean QueryBody(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "QueryBody")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<query body>");
+    Marker m = enter_section_(b, l, _NONE_, QUERY_BODY, "<query body>");
     r = Expr(b, l + 1);
-    exit_section_(b, l, m, QUERY_BODY, r, false, QueryBodyRecover_parser_);
+    exit_section_(b, l, m, r, false, QueryBodyRecover_parser_);
     return r;
   }
 
@@ -5863,9 +5866,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean QueryBodyRecover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "QueryBodyRecover")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NOT_, null);
+    Marker m = enter_section_(b, l, _NOT_);
     r = !eof(b, l + 1);
-    exit_section_(b, l, m, null, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5887,10 +5890,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean QuotAttrValueContent(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "QuotAttrValueContent")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<quot attr value content>");
+    Marker m = enter_section_(b, l, _NONE_, QUOT_ATTR_VALUE_CONTENT, "<quot attr value content>");
     r = QuotAttrContentChar(b, l + 1);
     if (!r) r = CommonContent(b, l + 1);
-    exit_section_(b, l, m, QUOT_ATTR_VALUE_CONTENT, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5899,10 +5902,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean RangeExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "RangeExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<range expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, RANGE_EXPR, "<range expr>");
     r = AdditiveExpr(b, l + 1);
     r = r && RangeExpr_1(b, l + 1);
-    exit_section_(b, l, m, RANGE_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5919,11 +5922,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "RangeOptionalExpr")) return false;
     if (!nextTokenIs(b, K_TO)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = ToOperator(b, l + 1);
     p = r; // pin = 1
     r = r && AdditiveExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -5932,12 +5935,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean RelationalComp(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "RelationalComp")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<relational comp>");
+    Marker m = enter_section_(b, l, _NONE_, RELATIONAL_COMP, "<relational comp>");
     r = consumeToken(b, LT_CHAR);
     if (!r) r = consumeToken(b, LE_CHARS);
     if (!r) r = consumeToken(b, GT_CHAR);
     if (!r) r = consumeToken(b, GE_CHARS);
-    exit_section_(b, l, m, RELATIONAL_COMP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5971,10 +5974,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "RelativePathOperator")) return false;
     if (!nextTokenIs(b, "<relative path operator>", SLASH, SLASH_SLASH)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<relative path operator>");
+    Marker m = enter_section_(b, l, _NONE_, RELATIVE_PATH_OPERATOR, "<relative path operator>");
     r = consumeToken(b, SLASH);
     if (!r) r = consumeToken(b, SLASH_SLASH);
-    exit_section_(b, l, m, RELATIVE_PATH_OPERATOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -5984,11 +5987,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "RelativePathOptionalExpr")) return false;
     if (!nextTokenIs(b, "", SLASH, SLASH_SLASH)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = RelativePathOptionalExpr_0(b, l + 1);
     p = r; // pin = 1
     r = r && StepExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6059,11 +6062,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ReturnClause")) return false;
     if (!nextTokenIs(b, K_RETURN)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, RETURN_CLAUSE, null);
     r = consumeToken(b, K_RETURN);
     p = r; // pin = 1
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, RETURN_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6172,10 +6175,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ReverseStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ReverseStep")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<reverse step>");
+    Marker m = enter_section_(b, l, _NONE_, REVERSE_STEP, "<reverse step>");
     r = FullReverseStep(b, l + 1);
     if (!r) r = AbbrevReverseStep(b, l + 1);
-    exit_section_(b, l, m, REVERSE_STEP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6205,11 +6208,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "RootPathOrChildExpr")) return false;
     if (!nextTokenIs(b, SLASH_SLASH)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, SLASH_SLASH);
     p = r; // pin = 1
     r = r && RelativePathExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6219,13 +6222,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SchemaAttributeTest")) return false;
     if (!nextTokenIs(b, K_SCHEMA_ATTRIBUTE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, SCHEMA_ATTRIBUTE_TEST, null);
     r = consumeToken(b, K_SCHEMA_ATTRIBUTE);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, AttributeDeclaration(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, SCHEMA_ATTRIBUTE_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6235,13 +6238,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SchemaElementTest")) return false;
     if (!nextTokenIs(b, K_SCHEMA_ELEMENT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, SCHEMA_ELEMENT_TEST, null);
     r = consumeToken(b, K_SCHEMA_ELEMENT);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && report_error_(b, ElementDeclaration(b, l + 1));
     r = p && consumeToken(b, R_PAR) && r;
-    exit_section_(b, l, m, SCHEMA_ELEMENT_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6251,7 +6254,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SchemaImport")) return false;
     if (!nextTokenIs(b, K_IMPORT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, SCHEMA_IMPORT, null);
     r = consumeToken(b, K_IMPORT);
     r = r && consumeToken(b, K_SCHEMA);
     p = r; // pin = 2
@@ -6259,7 +6262,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, URILiteral(b, l + 1)) && r;
     r = p && report_error_(b, SchemaImport_4(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, SCHEMA_IMPORT, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6379,10 +6382,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean SequenceType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SequenceType")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<sequence type>");
+    Marker m = enter_section_(b, l, _NONE_, SEQUENCE_TYPE, "<sequence type>");
     r = SequenceType_0(b, l + 1);
     if (!r) r = SequenceType_1(b, l + 1);
-    exit_section_(b, l, m, SEQUENCE_TYPE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6421,10 +6424,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean SequenceTypeUnion(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SequenceTypeUnion")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<sequence type union>");
+    Marker m = enter_section_(b, l, _NONE_, SEQUENCE_TYPE_UNION, "<sequence type union>");
     r = SequenceType(b, l + 1);
     r = r && SequenceTypeUnion_1(b, l + 1);
-    exit_section_(b, l, m, SEQUENCE_TYPE_UNION, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6476,10 +6479,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean SimpleMapExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SimpleMapExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<simple map expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, SIMPLE_MAP_EXPR, "<simple map expr>");
     r = PathExpr(b, l + 1);
     r = r && SimpleMapExpr_1(b, l + 1);
-    exit_section_(b, l, m, SIMPLE_MAP_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6513,11 +6516,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SimpleMapOptionalExpr")) return false;
     if (!nextTokenIs(b, EXCLAMATION_MARK)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = SimpleMapOperator(b, l + 1);
     p = r; // pin = 1
     r = r && PathExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6527,9 +6530,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SimpleTypeName")) return false;
     if (!nextTokenIs(b, "<simple type name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<simple type name>");
+    Marker m = enter_section_(b, l, _NONE_, SIMPLE_TYPE_NAME, "<simple type name>");
     r = TypeName(b, l + 1);
-    exit_section_(b, l, m, SIMPLE_TYPE_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6539,10 +6542,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SingleType")) return false;
     if (!nextTokenIs(b, "<single type>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<single type>");
+    Marker m = enter_section_(b, l, _NONE_, SINGLE_TYPE, "<single type>");
     r = SimpleTypeName(b, l + 1);
     r = r && SingleType_1(b, l + 1);
-    exit_section_(b, l, m, SINGLE_TYPE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6559,11 +6562,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SlidingWindowClause")) return false;
     if (!nextTokenIs(b, K_SLIDING)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, K_SLIDING);
     p = r; // pin = 1
     r = r && SlidingWindowDetails(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6572,7 +6575,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean SlidingWindowDetails(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SlidingWindowDetails")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, K_WINDOW);
     r = r && consumeToken(b, DOLLAR_SIGN);
     r = r && VarName(b, l + 1);
@@ -6581,7 +6584,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = r && ExprSingle(b, l + 1);
     r = r && WindowStartCondition(b, l + 1);
     r = r && WindowEndCondition(b, l + 1);
-    exit_section_(b, l, m, null, r, false, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, false, FLWORExprRecover_parser_);
     return r;
   }
 
@@ -6597,9 +6600,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean SourceExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SourceExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<source expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, SOURCE_EXPR, "<source expr>");
     r = ExprSingle(b, l + 1);
-    exit_section_(b, l, m, SOURCE_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6608,10 +6611,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean StepExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "StepExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<step expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, STEP_EXPR, "<step expr>");
     r = PostfixExpr(b, l + 1);
     if (!r) r = AxisStep(b, l + 1);
-    exit_section_(b, l, m, STEP_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6620,10 +6623,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean StringConcatExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "StringConcatExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<string concat expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, STRING_CONCAT_EXPR, "<string concat expr>");
     r = RangeExpr(b, l + 1);
     r = r && StringConcatExpr_1(b, l + 1);
-    exit_section_(b, l, m, STRING_CONCAT_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6645,11 +6648,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "StringConcatMultipliedExpr")) return false;
     if (!nextTokenIs(b, PIPE_PIPE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = ConcatOperator(b, l + 1);
     p = r; // pin = 1
     r = r && RangeExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6659,10 +6662,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "StringLiteralOrWildcard")) return false;
     if (!nextTokenIs(b, "<string literal or wildcard>", STAR_SIGN, STRINGLITERAL)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<string literal or wildcard>");
+    Marker m = enter_section_(b, l, _NONE_, STRING_LITERAL_OR_WILDCARD, "<string literal or wildcard>");
     r = consumeToken(b, STRINGLITERAL);
     if (!r) r = consumeToken(b, STAR_SIGN);
-    exit_section_(b, l, m, STRING_LITERAL_OR_WILDCARD, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6711,9 +6714,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean SwitchCaseOperand(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SwitchCaseOperand")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<switch case operand>");
+    Marker m = enter_section_(b, l, _NONE_, SWITCH_CASE_OPERAND, "<switch case operand>");
     r = ExprSingle(b, l + 1);
-    exit_section_(b, l, m, SWITCH_CASE_OPERAND, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6723,11 +6726,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SwitchDefaultReturnClause")) return false;
     if (!nextTokenIs(b, K_DEFAULT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, SWITCH_DEFAULT_RETURN_CLAUSE, null);
     r = consumeToken(b, K_DEFAULT);
     p = r; // pin = 1
     r = r && SwitchReturnClause(b, l + 1);
-    exit_section_(b, l, m, SWITCH_DEFAULT_RETURN_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6737,7 +6740,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "SwitchExpr")) return false;
     if (!nextTokenIs(b, K_SWITCH)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, SWITCH_EXPR, null);
     r = consumeToken(b, K_SWITCH);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, L_PAR));
@@ -6745,7 +6748,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, consumeToken(b, R_PAR)) && r;
     r = p && report_error_(b, SwitchExpr_4(b, l + 1)) && r;
     r = p && SwitchDefaultReturnClause(b, l + 1) && r;
-    exit_section_(b, l, m, SWITCH_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6783,9 +6786,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean TargetExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TargetExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<target expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, TARGET_EXPR, "<target expr>");
     r = ExprSingle(b, l + 1);
-    exit_section_(b, l, m, TARGET_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6795,12 +6798,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TextTest")) return false;
     if (!nextTokenIs(b, K_TEXT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, TEXT_TEST, null);
     r = consumeToken(b, K_TEXT);
     r = r && consumeToken(b, L_PAR);
     p = r; // pin = 2
     r = r && consumeToken(b, R_PAR);
-    exit_section_(b, l, m, TEXT_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6868,10 +6871,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean TreatExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TreatExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<treat expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, TREAT_EXPR, "<treat expr>");
     r = CastableExpr(b, l + 1);
     r = r && TreatExpr_1(b, l + 1);
-    exit_section_(b, l, m, TREAT_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6901,11 +6904,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TreatOptionalExpr")) return false;
     if (!nextTokenIs(b, K_TREAT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = TreatOperator(b, l + 1);
     p = r; // pin = 1
     r = r && SequenceType(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6915,11 +6918,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TryCatchExpr")) return false;
     if (!nextTokenIs(b, K_TRY)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, TRY_CATCH_EXPR, null);
     r = TryClause(b, l + 1);
     p = r; // pin = 1
     r = r && TryCatchExpr_1(b, l + 1);
-    exit_section_(b, l, m, TRY_CATCH_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6945,13 +6948,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TryClause")) return false;
     if (!nextTokenIs(b, K_TRY)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, TRY_CLAUSE, null);
     r = consumeToken(b, K_TRY);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, L_C_BRACE));
     r = p && report_error_(b, TryTargetExpr(b, l + 1)) && r;
     r = p && consumeToken(b, R_C_BRACE) && r;
-    exit_section_(b, l, m, TRY_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6967,11 +6970,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TumblingWindowClause")) return false;
     if (!nextTokenIs(b, K_TUMBLING)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, K_TUMBLING);
     p = r; // pin = 1
     r = r && TumblingWindowDetails(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -6980,7 +6983,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean TumblingWindowDetails(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TumblingWindowDetails")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, K_WINDOW);
     r = r && consumeToken(b, DOLLAR_SIGN);
     r = r && VarName(b, l + 1);
@@ -6989,7 +6992,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = r && ExprSingle(b, l + 1);
     r = r && WindowStartCondition(b, l + 1);
     r = r && TumblingWindowDetails_7(b, l + 1);
-    exit_section_(b, l, m, null, r, false, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, false, FLWORExprRecover_parser_);
     return r;
   }
 
@@ -7026,9 +7029,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TypeName")) return false;
     if (!nextTokenIs(b, "<type name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<type name>");
+    Marker m = enter_section_(b, l, _NONE_, TYPE_NAME, "<type name>");
     r = EQName(b, l + 1);
-    exit_section_(b, l, m, TYPE_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7038,7 +7041,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TypedFunctionTest")) return false;
     if (!nextTokenIs(b, K_FUNCTION)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, TYPED_FUNCTION_TEST, null);
     r = consumeToken(b, K_FUNCTION);
     r = r && consumeToken(b, L_PAR);
     r = r && TypedFunctionTest_2(b, l + 1);
@@ -7046,7 +7049,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     p = r; // pin = 4
     r = r && report_error_(b, consumeToken(b, K_AS));
     r = p && SequenceType(b, l + 1) && r;
-    exit_section_(b, l, m, TYPED_FUNCTION_TEST, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7097,12 +7100,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TypeswitchDefaultReturnClause")) return false;
     if (!nextTokenIs(b, K_DEFAULT)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, TYPESWITCH_DEFAULT_RETURN_CLAUSE, null);
     r = consumeToken(b, K_DEFAULT);
     p = r; // pin = 1
     r = r && report_error_(b, TypeswitchDefaultReturnClause_1(b, l + 1));
     r = p && SwitchReturnClause(b, l + 1) && r;
-    exit_section_(b, l, m, TYPESWITCH_DEFAULT_RETURN_CLAUSE, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7130,7 +7133,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TypeswitchExpr")) return false;
     if (!nextTokenIs(b, K_TYPESWITCH)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, TYPESWITCH_EXPR, null);
     r = consumeToken(b, K_TYPESWITCH);
     p = r; // pin = 1
     r = r && report_error_(b, consumeToken(b, L_PAR));
@@ -7138,7 +7141,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, consumeToken(b, R_PAR)) && r;
     r = p && report_error_(b, TypeswitchExpr_4(b, l + 1)) && r;
     r = p && TypeswitchDefaultReturnClause(b, l + 1) && r;
-    exit_section_(b, l, m, TYPESWITCH_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7163,9 +7166,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean URIExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "URIExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<uri expr>");
+    Marker m = enter_section_(b, l, _NONE_, URI_EXPR, "<uri expr>");
     r = Expr(b, l + 1);
-    exit_section_(b, l, m, URI_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7186,10 +7189,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean UnaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnaryExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<unary expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, UNARY_EXPR, "<unary expr>");
     r = UnaryExpr_0(b, l + 1);
     r = r && ValueExpr(b, l + 1);
-    exit_section_(b, l, m, UNARY_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7221,10 +7224,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean UnionExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "UnionExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<union expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, UNION_EXPR, "<union expr>");
     r = IntersectExceptExpr(b, l + 1);
     r = r && UnionExpr_1(b, l + 1);
-    exit_section_(b, l, m, UNION_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7246,10 +7249,10 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "UnionOperator")) return false;
     if (!nextTokenIs(b, "<union operator>", K_UNION, PIPE)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<union operator>");
+    Marker m = enter_section_(b, l, _NONE_, UNION_OPERATOR, "<union operator>");
     r = consumeToken(b, K_UNION);
     if (!r) r = consumeToken(b, PIPE);
-    exit_section_(b, l, m, UNION_OPERATOR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7259,11 +7262,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "UnionOptionalExpr")) return false;
     if (!nextTokenIs(b, "", K_UNION, PIPE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = UnionOperator(b, l + 1);
     p = r; // pin = 1
     r = r && IntersectExceptExpr(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7273,13 +7276,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "UnorderedExpr")) return false;
     if (!nextTokenIs(b, K_UNORDERED)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, UNORDERED_EXPR, null);
     r = consumeToken(b, K_UNORDERED);
     r = r && consumeToken(b, L_C_BRACE);
     p = r; // pin = 2
     r = r && report_error_(b, Expr(b, l + 1));
     r = p && consumeToken(b, R_C_BRACE) && r;
-    exit_section_(b, l, m, UNORDERED_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7295,14 +7298,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ValidateExpr")) return false;
     if (!nextTokenIs(b, K_VALIDATE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, VALIDATE_EXPR, null);
     r = consumeToken(b, K_VALIDATE);
     p = r; // pin = 1
     r = r && report_error_(b, ValidateExpr_1(b, l + 1));
     r = p && report_error_(b, consumeToken(b, L_C_BRACE)) && r;
     r = p && report_error_(b, Expr(b, l + 1)) && r;
     r = p && consumeToken(b, R_C_BRACE) && r;
-    exit_section_(b, l, m, VALIDATE_EXPR, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7354,14 +7357,14 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ValueComp(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ValueComp")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<value comp>");
+    Marker m = enter_section_(b, l, _NONE_, VALUE_COMP, "<value comp>");
     r = consumeToken(b, EQ);
     if (!r) r = consumeToken(b, NE);
     if (!r) r = consumeToken(b, LT);
     if (!r) r = consumeToken(b, LE);
     if (!r) r = consumeToken(b, GT);
     if (!r) r = consumeToken(b, GE);
-    exit_section_(b, l, m, VALUE_COMP, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7370,11 +7373,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean ValueExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ValueExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, "<value expr>");
+    Marker m = enter_section_(b, l, _COLLAPSE_, VALUE_EXPR, "<value expr>");
     r = ValidateExpr(b, l + 1);
     if (!r) r = ExtensionExpr(b, l + 1);
     if (!r) r = SimpleMapExpr(b, l + 1);
-    exit_section_(b, l, m, VALUE_EXPR, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7384,7 +7387,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "VarDecl")) return false;
     if (!nextTokenIs(b, K_DECLARE)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, VAR_DECL, null);
     r = consumeToken(b, K_DECLARE);
     r = r && VarDecl_1(b, l + 1);
     r = r && consumeToken(b, K_VARIABLE);
@@ -7394,7 +7397,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, VarDecl_5(b, l + 1)) && r;
     r = p && report_error_(b, VarDecl_6(b, l + 1)) && r;
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, VAR_DECL, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7444,9 +7447,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean VarDefaultValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VarDefaultValue")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<var default value>");
+    Marker m = enter_section_(b, l, _NONE_, VAR_DEFAULT_VALUE, "<var default value>");
     r = ExprSingle(b, l + 1);
-    exit_section_(b, l, m, VAR_DEFAULT_VALUE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7481,11 +7484,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "VarName")) return false;
     if (!nextTokenIs(b, "<var name>", NCNAME, URIQUALIFIEDNAME)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<var name>");
+    Marker m = enter_section_(b, l, _NONE_, VAR_NAME, "<var name>");
     r = VarName_0(b, l + 1);
     if (!r) r = VarLocalName(b, l + 1);
     if (!r) r = consumeToken(b, URIQUALIFIEDNAME);
-    exit_section_(b, l, m, VAR_NAME, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7493,12 +7496,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   private static boolean VarName_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VarName_0")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = Prefix(b, l + 1);
     r = r && consumeToken(b, COLON);
     p = r; // pin = 2
     r = r && VarLocalName(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7508,11 +7511,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "VarRef")) return false;
     if (!nextTokenIs(b, DOLLAR_SIGN)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, VAR_REF, null);
     r = consumeToken(b, DOLLAR_SIGN);
     p = r; // pin = 1
     r = r && VarName(b, l + 1);
-    exit_section_(b, l, m, VAR_REF, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7521,9 +7524,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean VarValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VarValue")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<var value>");
+    Marker m = enter_section_(b, l, _NONE_, VAR_VALUE, "<var value>");
     r = ExprSingle(b, l + 1);
-    exit_section_(b, l, m, VAR_VALUE, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7533,11 +7536,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "VarValueAssignment")) return false;
     if (!nextTokenIs(b, OP_ASSIGN)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, OP_ASSIGN);
     p = r; // pin = 1
     r = r && VarValue(b, l + 1);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7558,12 +7561,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean VersionDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VersionDecl")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<version decl>");
+    Marker m = enter_section_(b, l, _NONE_, VERSION_DECL, "<version decl>");
     r = consumeToken(b, K_XQUERY);
     p = r; // pin = 1
     r = r && report_error_(b, VersionDecl_1(b, l + 1));
     r = p && Separator(b, l + 1) && r;
-    exit_section_(b, l, m, VERSION_DECL, r, p, VersionDeclRecover_parser_);
+    exit_section_(b, l, m, r, p, VersionDeclRecover_parser_);
     return r || p;
   }
 
@@ -7604,11 +7607,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "VersionDeclEncoding")) return false;
     if (!nextTokenIs(b, K_ENCODING)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, K_ENCODING);
     p = r; // pin = 1
     r = r && consumeToken(b, STRINGLITERAL);
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7617,9 +7620,9 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   static boolean VersionDeclRecover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VersionDeclRecover")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NOT_, null);
+    Marker m = enter_section_(b, l, _NOT_);
     r = !VersionDeclRecover_0(b, l + 1);
-    exit_section_(b, l, m, null, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7702,12 +7705,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "VersionDeclVersion")) return false;
     if (!nextTokenIs(b, K_VERSION)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, K_VERSION);
     p = r; // pin = 1
     r = r && report_error_(b, Version(b, l + 1));
     r = p && VersionDeclVersion_2(b, l + 1) && r;
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -7734,11 +7737,11 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean WhereClause(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "WhereClause")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, "<where clause>");
+    Marker m = enter_section_(b, l, _NONE_, WHERE_CLAUSE, "<where clause>");
     r = consumeToken(b, K_WHERE);
     p = r; // pin = 1
     r = r && ExprSingle(b, l + 1);
-    exit_section_(b, l, m, WHERE_CLAUSE, r, p, FLWORExprRecover_parser_);
+    exit_section_(b, l, m, r, p, FLWORExprRecover_parser_);
     return r || p;
   }
 
@@ -7750,12 +7753,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   public static boolean Wildcard(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Wildcard")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<wildcard>");
+    Marker m = enter_section_(b, l, _NONE_, WILDCARD, "<wildcard>");
     r = Wildcard_0(b, l + 1);
     if (!r) r = Wildcard_1(b, l + 1);
     if (!r) r = consumeToken(b, STAR_SIGN);
     if (!r) r = Wildcard_3(b, l + 1);
-    exit_section_(b, l, m, WILDCARD, r, false, null);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -7939,13 +7942,13 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "XmlClosingTagPart")) return false;
     if (!nextTokenIs(b, XMLENDTAGSTART)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, XMLENDTAGSTART);
     p = r; // pin = 1
     r = r && report_error_(b, XmlTagName(b, l + 1));
     r = p && report_error_(b, XmlClosingTagPart_2(b, l + 1)) && r;
     r = p && consumeToken(b, XMLTAGEND) && r;
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -8015,12 +8018,12 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "XmlFullTag")) return false;
     if (!nextTokenIs(b, XMLSTARTTAGSTART)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, XML_FULL_TAG, null);
     r = XmlOpeningTagPart(b, l + 1);
     p = r; // pin = 1
     r = r && report_error_(b, XmlFullTag_1(b, l + 1));
     r = p && XmlClosingTagPart(b, l + 1) && r;
-    exit_section_(b, l, m, XML_FULL_TAG, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
@@ -8042,7 +8045,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "XmlOpeningTagPart")) return false;
     if (!nextTokenIs(b, XMLSTARTTAGSTART)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, XMLSTARTTAGSTART);
     p = r; // pin = 1
     r = r && report_error_(b, XmlTagName(b, l + 1));
@@ -8050,7 +8053,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     r = p && report_error_(b, XmlOpeningTagPart_3(b, l + 1)) && r;
     r = p && report_error_(b, XmlOpeningTagPart_4(b, l + 1)) && r;
     r = p && consumeToken(b, XMLTAGEND) && r;
-    exit_section_(b, l, m, null, r, p, null);
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 

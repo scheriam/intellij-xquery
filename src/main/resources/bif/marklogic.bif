@@ -1678,7 +1678,158 @@ fn#year-from-date#1#$arg as xs:date?#xs:integer?
 fn#year-from-dateTime#1#$arg as xs:dateTime?#xs:integer?
 fn#years-from-duration#1#$arg as xs:duration?#xs:integer?
 fn#zero-or-one#1#$arg as item()*#item()?
-geo#box#1#$box as node()# cts:box 
+functx#add-attributes#3#$elements as element()*, $attrNames as xs:QName*, $attrValues as xs:anyAtomicType*#element()?
+functx#add-months#2#$date as xs:anyAtomicType?, $months as xs:integer#xs:date?
+functx#add-or-update-attributes#3#$elements as element()*, $attrNames as xs:QName*, $attrValues as xs:anyAtomicType*#element()?
+functx#all-whitespace#1#$arg as xs:string?#xs:boolean
+functx#are-distinct-values#1#$seq as xs:anyAtomicType*#xs:boolean
+functx#atomic-type#1#$values as xs:anyAtomicType*#xs:string*
+functx#avg-empty-is-zero#2#$values as xs:anyAtomicType*, $allNodes as node()*#xs:double
+functx#between-exclusive#3#$value as xs:anyAtomicType?, $minValue as xs:anyAtomicType, $maxValue as xs:anyAtomicType#xs:boolean
+functx#between-inclusive#3#$value as xs:anyAtomicType?, $minValue as xs:anyAtomicType, $maxValue as xs:anyAtomicType#xs:boolean
+functx#camel-case-to-words#2#$arg as xs:string?, $delim as xs:string#xs:string
+functx#capitalize-first#1#$arg as xs:string?#xs:string?
+functx#change-element-names-deep#3#$nodes as node()*, $oldNames as xs:QName*, $newNames as xs:QName*#node()*
+functx#change-element-ns-deep#3#$nodes as node()*, $newns as xs:string, $prefix as xs:string#node()*
+functx#change-element-ns#3#$elements as element()*, $newns as xs:string, $prefix as xs:string#element()?
+functx#chars#1#$arg as xs:string?#xs:string*
+functx#contains-any-of#2#$arg as xs:string?, $searchStrings as xs:string*#xs:boolean
+functx#contains-case-insensitive#2#$arg as xs:string?, $substring as xs:string#xs:boolean?
+functx#contains-word#2#$arg as xs:string?, $word as xs:string#xs:boolean
+functx#copy-attributes#2#$copyTo as element(), $copyFrom as element()#element()
+functx#date#3#$year as xs:anyAtomicType, $month as xs:anyAtomicType, $day as xs:anyAtomicType#xs:date
+functx#dateTime#6#$year as xs:anyAtomicType, $month as xs:anyAtomicType, $day as xs:anyAtomicType, $hour as xs:anyAtomicType, $minute as xs:anyAtomicType, $second as xs:anyAtomicType#xs:dateTime
+functx#day-in-year#1#$date as xs:anyAtomicType?#xs:integer?
+functx#day-of-week-abbrev-en#1#$date as xs:anyAtomicType?#xs:string?
+functx#day-of-week-name-en#1#$date as xs:anyAtomicType?#xs:string?
+functx#day-of-week#1#$date as xs:anyAtomicType?#xs:integer?
+functx#dayTimeDuration#4#$days as xs:decimal?, $hours as xs:decimal?, $minutes as xs:decimal?, $seconds as xs:decimal?#xs:dayTimeDuration
+functx#days-in-month#1#$date as xs:anyAtomicType?#xs:integer?
+functx#depth-of-node#1#$node as node()?#xs:integer
+functx#distinct-attribute-names#1#$nodes as node()*#xs:string*
+functx#distinct-deep#1#$nodes as node()*#node()*
+functx#distinct-element-names#1#$nodes as node()*#xs:string*
+functx#distinct-element-paths#1#$nodes as node()*#xs:string*
+functx#distinct-nodes#1#$nodes as node()*#node()*
+functx#duration-from-timezone#1#$timezone as xs:string#xs:dayTimeDuration
+functx#dynamic-path#2#$parent as node(), $path as xs:string#item()*
+functx#escape-for-regex#1#$arg as xs:string?#xs:string
+functx#exclusive-or#2#$arg1 as xs:boolean?, $arg2 as xs:boolean?#xs:boolean?
+functx#first-day-of-month#1#$date as xs:anyAtomicType?#xs:date?
+functx#first-day-of-year#1#$date as xs:anyAtomicType?#xs:date?
+functx#first-node#1#$nodes as node()*#node()?
+functx#follows-not-descendant#2#$a as node()?, $b as node()?#xs:boolean
+functx#format-as-title-en#1#$titles as xs:string*#xs:string*
+functx#fragment-from-uri#1#$uri as xs:string?#xs:string?
+functx#get-matches-and-non-matches#2#$string as xs:string?, $regex as xs:string#element()*
+functx#get-matches#2#$string as xs:string?, $regex as xs:string#xs:string*
+functx#has-element-only-content#1#$element as element()#xs:boolean
+functx#has-empty-content#1#$element as element()#xs:boolean
+functx#has-mixed-content#1#$element as element()#xs:boolean
+functx#has-simple-content#1#$element as element()#xs:boolean
+functx#id-from-element#1#$element as element()?#xs:string?
+functx#id-untyped#2#$node as node()*, $id as xs:anyAtomicType#element()*
+functx#if-absent#2#$arg as item()*, $value as item()*#item()*
+functx#if-empty#2#$arg as item()?, $value as item()*#item()*
+functx#index-of-deep-equal-node#2#$nodes as node()*, $nodeToFind as node()#xs:integer*
+functx#index-of-match-first#2#$arg as xs:string?, $pattern as xs:string#xs:integer?
+functx#index-of-node#2#$nodes as node()*, $nodeToFind as node()#xs:integer*
+functx#index-of-string-first#2#$arg as xs:string?, $substring as xs:string#xs:integer?
+functx#index-of-string-last#2#$arg as xs:string?, $substring as xs:string#xs:integer?
+functx#index-of-string#2#$arg as xs:string?, $substring as xs:string#xs:integer*
+functx#insert-string#3#$originalString as xs:string?, $stringToInsert as xs:string?, $pos as xs:integer#xs:string
+functx#is-a-number#1#$value as xs:anyAtomicType?#xs:boolean
+functx#is-absolute-uri#1#$uri as xs:string?#xs:boolean
+functx#is-ancestor#2#$node1 as node(), $node2 as node()#xs:boolean
+functx#is-descendant#2#$node1 as node(), $node2 as node()#xs:boolean
+functx#is-leap-year#1#$date as xs:anyAtomicType?#xs:boolean
+functx#is-node-among-descendants-deep-equal#2#$node as node()?, $seq as node()*#xs:boolean
+functx#is-node-among-descendants#2#$node as node()?, $seq as node()*#xs:boolean
+functx#is-node-in-sequence-deep-equal#2#$node as node()?, $seq as node()*#xs:boolean
+functx#is-node-in-sequence#2#$node as node()?, $seq as node()*#xs:boolean
+functx#is-value-in-sequence#2#$value as xs:anyAtomicType?, $seq as xs:anyAtomicType*#xs:boolean
+functx#last-day-of-month#1#$date as xs:anyAtomicType?#xs:date?
+functx#last-day-of-year#1#$date as xs:anyAtomicType?#xs:date?
+functx#last-node#1#$nodes as node()*#node()?
+functx#leaf-elements#1#$root as node()?#element()*
+functx#left-trim#1#$arg as xs:string?#xs:string
+functx#line-count#1#$arg as xs:string?#xs:integer
+functx#lines#1#$arg as xs:string?#xs:string*
+functx#max-depth#1#$root as node()?#xs:integer?
+functx#max-determine-type#1#$seq as xs:anyAtomicType*#xs:anyAtomicType?
+functx#max-line-length#1#$arg as xs:string?#xs:integer
+functx#max-node#1#$nodes as node()*#node()*
+functx#max-string#1#$strings as xs:anyAtomicType*#xs:string?
+functx#min-determine-type#1#$seq as xs:anyAtomicType*#xs:anyAtomicType?
+functx#min-node#1#$nodes as node()*#node()*
+functx#min-non-empty-string#1#$strings as xs:string*#xs:string?
+functx#min-string#1#$strings as xs:anyAtomicType*#xs:string?
+functx#mmddyyyy-to-date#1#$dateString as xs:string?#xs:date?
+functx#month-abbrev-en#1#$date as xs:anyAtomicType?#xs:string?
+functx#month-name-en#1#$date as xs:anyAtomicType?#xs:string?
+functx#name-test#2#$testname as xs:string?, $names as xs:string*#xs:boolean
+functx#namespaces-in-use#1#$root as node()?#xs:anyURI*
+functx#next-day#1#$date as xs:anyAtomicType?#xs:date?
+functx#node-kind#1#$nodes as node()*#xs:string*
+functx#non-distinct-values#1#$seq as xs:anyAtomicType*#xs:anyAtomicType*
+functx#number-of-matches#2#$arg as xs:string?, $pattern as xs:string#xs:integer
+functx#open-ref-document#1#$refNode as node()#document-node()
+functx#ordinal-number-en#1#$num as xs:integer?#xs:string
+functx#pad-integer-to-length#2#$integerToPad as xs:anyAtomicType?, $length as xs:integer#xs:string
+functx#pad-string-to-length#3#$stringToPad as xs:string?, $padChar as xs:string, $length as xs:integer#xs:string
+functx#path-to-node-with-pos#1#$node as node()?#xs:string
+functx#path-to-node#1#$nodes as node()*#xs:string*
+functx#precedes-not-ancestor#2#$a as node()?, $b as node()?#xs:boolean
+functx#previous-day#1#$date as xs:anyAtomicType?#xs:date?
+functx#remove-attributes-deep#2#$nodes as node()*, $names as xs:string*#node()*
+functx#remove-attributes#2#$elements as element()*, $names as xs:string*#element()
+functx#remove-elements-deep#2#$nodes as node()*, $names as xs:string*#node()*
+functx#remove-elements-not-contents#2#$nodes as node()*, $names as xs:string*#node()*
+functx#remove-elements#2#$elements as element()*, $names as xs:string*#element()*
+functx#repeat-string#2#$stringToRepeat as xs:string?, $count as xs:integer#xs:string
+functx#replace-beginning#3#$arg as xs:string?, $pattern as xs:string, $replacement as xs:string#xs:string
+functx#replace-element-values#2#$elements as element()*, $values as xs:anyAtomicType*#element()*
+functx#replace-first#3#$arg as xs:string?, $pattern as xs:string, $replacement as xs:string#xs:string
+functx#replace-multi#3#$arg as xs:string?, $changeFrom as xs:string*, $changeTo as xs:string*#xs:string?
+functx#reverse-string#1#$arg as xs:string?#xs:string
+functx#right-trim#1#$arg as xs:string?#xs:string
+functx#scheme-from-uri#1#$uri as xs:string?#xs:string?
+functx#sequence-deep-equal#2#$seq1 as item()*, $seq2 as item()*#xs:boolean
+functx#sequence-node-equal-any-order#2#$seq1 as node()*, $seq2 as node()*#xs:boolean
+functx#sequence-node-equal#2#$seq1 as node()*, $seq2 as node()*#xs:boolean
+functx#sequence-type#1#$items as item()*#xs:string
+functx#siblings-same-name#1#$element as element()?#element()*
+functx#siblings#1#$node as node()?#node()*
+functx#sort-as-numeric#1#$seq as item()*#item()*
+functx#sort-case-insensitive#1#$seq as item()*#item()*
+functx#sort-document-order#1#$seq as node()*#node()*
+functx#sort#1#$seq as item()*#item()*
+functx#substring-after-if-contains#2#$arg as xs:string?, $delim as xs:string#xs:string?
+functx#substring-after-last-match#2#$arg as xs:string?, $regex as xs:string#xs:string
+functx#substring-after-last#2#$arg as xs:string?, $delim as xs:string#xs:string
+functx#substring-after-match#2#$arg as xs:string?, $regex as xs:string#xs:string?
+functx#substring-before-if-contains#2#$arg as xs:string?, $delim as xs:string#xs:string?
+functx#substring-before-last-match#2#$arg as xs:string?, $regex as xs:string#xs:string?
+functx#substring-before-last#2#$arg as xs:string?, $delim as xs:string#xs:string
+functx#substring-before-match#2#$arg as xs:string?, $regex as xs:string#xs:string
+functx#time#3#$hour as xs:anyAtomicType, $minute as xs:anyAtomicType, $second as xs:anyAtomicType#xs:time
+functx#timezone-from-duration#1#$duration as xs:dayTimeDuration#xs:string
+functx#total-days-from-duration#1#$duration as xs:dayTimeDuration?#xs:decimal?
+functx#total-hours-from-duration#1#$duration as xs:dayTimeDuration?#xs:decimal?
+functx#total-minutes-from-duration#1#$duration as xs:dayTimeDuration?#xs:decimal?
+functx#total-months-from-duration#1#$duration as xs:yearMonthDuration?#xs:decimal?
+functx#total-seconds-from-duration#1#$duration as xs:dayTimeDuration?#xs:decimal?
+functx#total-years-from-duration#1#$duration as xs:yearMonthDuration?#xs:decimal?
+functx#trim#1#$arg as xs:string?#xs:string
+functx#update-attributes#3#$elements as element()*, $attrNames as xs:QName*, $attrValues as xs:anyAtomicType*#element()?
+functx#value-except#2#$arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType*#xs:anyAtomicType*
+functx#value-intersect#2#$arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType*#xs:anyAtomicType*
+functx#value-union#2#$arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType*#xs:anyAtomicType*
+functx#word-count#1#$arg as xs:string?#xs:integer
+functx#words-to-camel-case#1#$arg as xs:string?#xs:string
+functx#wrap-values-in-elements#2#$values as xs:anyAtomicType*, $elementName as xs:QName#element()*
+functx#yearMonthDuration#2#$years as xs:decimal?, $months as xs:integer?#xs:yearMonthDuration
+geo#box#1#$box as node()# cts:box
 geo#circle#2#$radius as xs:double, $center as node()# cts:circle 
 geo#complex-polygon#1#$complex-polygon as node()# cts:complex-polygon 
 geo#geospatial-query#3#$regions as cts:region*, $options as xs:string*, $weight as xs:double?# cts:query 

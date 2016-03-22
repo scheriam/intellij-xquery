@@ -31,6 +31,7 @@ public class MarkLogicPredeclaredNamespaces extends XQuery30PredeclaredNamespace
             "cts",
             "dbg",
             "exsl",
+            "functx",
             "map",
             "sec",
             "sem",
@@ -59,6 +60,7 @@ public class MarkLogicPredeclaredNamespaces extends XQuery30PredeclaredNamespace
         prefixToNamespaceMap.put("ec2", Pair.create("http://marklogic.com/ec2", false));
         prefixToNamespaceMap.put("excel", Pair.create("http://marklogic.com/cpf/excel", false));
         prefixToNamespaceMap.put("flexrep", Pair.create("http://marklogic.com/xdmp/flexible-replication", false));
+        prefixToNamespaceMap.put("functx", Pair.create("http://www.functx.com", false));
         prefixToNamespaceMap.put("geo", Pair.create("http://marklogic.com/geospatial", false));
         prefixToNamespaceMap.put("geojson", Pair.create("http://marklogic.com/geospatial/geojson", false));
         prefixToNamespaceMap.put("georss", Pair.create("http://www.georss.org/georss", false));
