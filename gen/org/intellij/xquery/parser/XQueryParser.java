@@ -3148,6 +3148,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   // ("child" "::")
   //  | ("descendant" "::")
   //  | ("attribute" "::")
+  //  | ("property" "::") /* ML extension */
   //  | ("self" "::")
   //  | ("descendant-or-self" "::")
   //  | ("following-sibling" "::")
@@ -3163,6 +3164,7 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     if (!r) r = ForwardAxis_4(b, l + 1);
     if (!r) r = ForwardAxis_5(b, l + 1);
     if (!r) r = ForwardAxis_6(b, l + 1);
+    if (!r) r = ForwardAxis_7(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -3200,9 +3202,20 @@ public class XQueryParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // "self" "::"
+  // "property" "::"
   private static boolean ForwardAxis_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ForwardAxis_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, K_PROPERTY);
+    r = r && consumeToken(b, COLON_COLON);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // "self" "::"
+  private static boolean ForwardAxis_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ForwardAxis_4")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, K_SELF);
@@ -3212,8 +3225,8 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   }
 
   // "descendant-or-self" "::"
-  private static boolean ForwardAxis_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ForwardAxis_4")) return false;
+  private static boolean ForwardAxis_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ForwardAxis_5")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, K_DESCENDANT_OR_SELF);
@@ -3223,8 +3236,8 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   }
 
   // "following-sibling" "::"
-  private static boolean ForwardAxis_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ForwardAxis_5")) return false;
+  private static boolean ForwardAxis_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ForwardAxis_6")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, K_FOLLOWING_SIBLING);
@@ -3234,8 +3247,8 @@ public class XQueryParser implements PsiParser, LightPsiParser {
   }
 
   // "following" "::"
-  private static boolean ForwardAxis_6(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ForwardAxis_6")) return false;
+  private static boolean ForwardAxis_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ForwardAxis_7")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, K_FOLLOWING);

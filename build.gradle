@@ -24,7 +24,7 @@ apply from: 'idea.gradle'
 sourceCompatibility = 1.8
 
 // Update this path to point to your IDEA installation
-project.ext.userDefinedInstallationPath = ''
+project.ext.userDefinedInstallationPath = 'D:/work/IntelliJ IDEA 2016.1'
 project.ext.sdkDir = 'sdk'
 project.ext.sdkVersion = '145.258.11'
 project.ext.ideaSdk = 'idea-IC-' + project.ext.sdkVersion

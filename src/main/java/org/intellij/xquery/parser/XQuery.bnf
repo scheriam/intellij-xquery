@@ -186,6 +186,7 @@
   K_PRECEDING_SIBLING    =  "preceding-sibling"
   K_PRECEDING            =  "preceding"
   K_ANCESTOR_OR_SELF     =  "ancestor-or-self"
+  K_PROPERTY             =  "property"
   K_TUMBLING             =  "tumbling"
   K_SLIDING              =  "sliding"
   K_WINDOW               =  "window"
@@ -443,6 +444,7 @@ private FullForwardStep ::= ForwardAxis NodeTest {pin=1}
 private ForwardAxis ::= ("child" "::")
  | ("descendant" "::")
  | ("attribute" "::")
+ | ("property" "::") /* ML extension */
  | ("self" "::")
  | ("descendant-or-self" "::")
  | ("following-sibling" "::")

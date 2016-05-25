@@ -410,6 +410,7 @@ public interface XQueryTypes {
   IElementType K_PRESERVE = new XQueryTokenType("preserve");
   IElementType K_PREVIOUS = new XQueryTokenType("previous");
   IElementType K_PRIVATE = new XQueryTokenType("private");
+  IElementType K_PROPERTY = new XQueryTokenType("property");
   IElementType K_RENAME = new XQueryTokenType("rename");
   IElementType K_REPLACE = new XQueryTokenType("replace");
   IElementType K_RETURN = new XQueryTokenType("return");

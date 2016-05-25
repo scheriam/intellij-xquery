@@ -18,7 +18,7 @@
 <idea-plugin url="http://ligasgr.github.io/intellij-xquery/" version="2">
     <id>org.intellij.xquery</id>
     <name>XQuery Support</name>
-    <version>3.0.1</version>
+    <version>3.0.2-SNAPSHOT</version>
     <vendor email="ligasgr@gmail.com" url="http://grzegorzligas.blogspot.com/">Grzegorz Ligas</vendor>
 
     <description>Provides support for XQuery language in version 3.0</description>
@@ -28,6 +28,10 @@
             <p>3.0.1:</p>
             <ul>
                 <li>Upgrade to Idea 2016.1</li>
+            </ul>
+            <p>3.0.2-SNAPSHOT:</p>
+            <ul>
+                <li>Added ML specific details</li>
             </ul>
         ]]>
     </change-notes>
