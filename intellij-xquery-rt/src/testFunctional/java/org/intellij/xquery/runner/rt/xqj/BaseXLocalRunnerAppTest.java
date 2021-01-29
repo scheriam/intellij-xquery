@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,11 +30,6 @@ import static org.intellij.xquery.runner.rt.XQueryItemType.XS_NORMALIZED_STRING;
 import static org.intellij.xquery.runner.rt.XQueryItemType.XS_TOKEN;
 import static org.intellij.xquery.runner.rt.XQueryItemType.XS_UNTYPED_ATOMIC;
 
-/**
- * User: ligasgr
- * Date: 16/03/14
- * Time: 16:08
- */
 @Ignore("fails when multiple xqj drivers on the classpath and the order is mixed - lang_en.txt from other driver used")
 public class BaseXLocalRunnerAppTest extends RunnerAppTest {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,14 +46,18 @@ import java.util.Map;
 import static com.intellij.util.containers.ContainerUtil.findAll;
 import static org.intellij.xquery.model.XQueryLanguageVersion.V0_9_ML;
 import static org.intellij.xquery.model.XQueryLanguageVersion.V1_0_ML;
+import static org.intellij.xquery.model.XQueryLanguageVersion.V3_1;
 import static org.intellij.xquery.psi.XQueryUtil.getReferencesToExistingFilesInImport;
 import static org.intellij.xquery.reference.namespace.XQuery30PredeclaredNamespaces.FN;
 import static org.intellij.xquery.util.StringUtils.removeQuotOrApos;
 
-public class XQueryFile extends PsiFileBase {
+public class XQueryFile extends PsiFileBase
+{
+    FileViewProvider viewProvider;
 
     public XQueryFile(@NotNull FileViewProvider viewProvider) {
         super(viewProvider, XQueryLanguage.INSTANCE);
+        this.viewProvider = viewProvider;
     }
 
     @NotNull
@@ -64,7 +68,7 @@ public class XQueryFile extends PsiFileBase {
 
     @Override
     public String toString() {
-        return "XQuery File";
+        return (viewProvider == null) ? "XQuery File" : viewProvider.getVirtualFile().getName();
     }
 
     @Override
@@ -300,8 +304,7 @@ public class XQueryFile extends PsiFileBase {
     }
 
     private Collection<XQueryFunctionDecl> calcFunctionDeclarations() {
-        Collection<XQueryFunctionDecl> functionDeclarations = PsiTreeUtil.findChildrenOfType(this,
-                XQueryFunctionDecl.class);
+        Collection<XQueryFunctionDecl> functionDeclarations = PsiTreeUtil.findChildrenOfType(this, XQueryFunctionDecl.class);
         return functionDeclarations;
     }
 
@@ -441,7 +444,7 @@ public class XQueryFile extends PsiFileBase {
                 && getModuleDeclaration().getURILiteral() != null) {
             return removeQuotOrApos(getModuleDeclaration().getURILiteral().getText());
         }
-        return XMLConstants.NULL_NS_URI;
+        return XMLConstants.DEFAULT_NS_PREFIX;
     }
 
     public String mapVariablePrefixToNamespace(String prefix) {
@@ -513,6 +516,22 @@ public class XQueryFile extends PsiFileBase {
         return !versionIsMarklogicSpecific();
     }
 
+    public boolean versionIs31() {
+        XQueryVersionDecl versionDecl = getVersionDeclaration();
+        XQueryVersion version = versionDecl != null ? versionDecl.getVersion() : null;
+        boolean versionIs31 = false;
+        if (version != null) {
+            String versionString = version.getVersionString();
+            XQueryLanguageVersion languageVersion = XQueryLanguageVersion.valueFor(versionString);
+            if (V3_1 == languageVersion) {
+                versionIs31 = true;
+            }
+        } else if (getSettings().isFlavourWithVersion31()) {
+            versionIs31 = true;
+        }
+        return versionIs31;
+    }
+
     public boolean versionIsMarklogicSpecific() {
         XQueryVersionDecl versionDecl = getVersionDeclaration();
         XQueryVersion version = versionDecl != null ? versionDecl.getVersion() : null;
@@ -535,9 +554,10 @@ public class XQueryFile extends PsiFileBase {
 
     public boolean isBuiltInFunction(XQueryFunctionName functionName) {
         String name = functionName.getLocalNameText();
-        String prefix = functionName.getPrefixText();
+        String pre = functionName.getPrefixText();
+        String prefix = ((pre == null) && versionIsMarklogicSpecific()) ? "fn" : pre;
         String namespace = mapFunctionPrefixToNamespace(prefix);
-        return isBuiltInFunction(namespace, name);
+        return isBuiltInFunction (namespace, name);
     }
 
     public Collection<BuiltInFunctionSignature> getFunctionsSignatures(String namespace, String name) {

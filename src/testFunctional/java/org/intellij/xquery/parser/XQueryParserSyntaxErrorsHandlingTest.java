@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,11 +17,6 @@
 
 package org.intellij.xquery.parser;
 
-/**
- * User: ligasgr
- * Date: 08/04/14
- * Time: 21:01
- */
 public class XQueryParserSyntaxErrorsHandlingTest extends BaseParserTest {
 
     public XQueryParserSyntaxErrorsHandlingTest() {
@@ -145,6 +140,14 @@ public class XQueryParserSyntaxErrorsHandlingTest extends BaseParserTest {
     }
 
     public void testIncompleteVariableName() {
+        doTest(true);
+    }
+
+    public void testIncompletePredicateInXmlAttribute() {
+        doTest(true);
+    }
+
+    public void testStringWithIncompleteEntityRef() {
         doTest(true);
     }
 }

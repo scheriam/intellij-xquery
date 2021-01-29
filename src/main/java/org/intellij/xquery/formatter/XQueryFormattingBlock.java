@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,9 +55,9 @@ import static org.intellij.xquery.psi.XQueryTypes.CASTABLE_OPERATOR;
 import static org.intellij.xquery.psi.XQueryTypes.CAST_OPERATOR;
 import static org.intellij.xquery.psi.XQueryTypes.CATCH_CLAUSE;
 import static org.intellij.xquery.psi.XQueryTypes.CATCH_CLAUSE_EXPRESSION;
-import static org.intellij.xquery.psi.XQueryTypes.CONTENT_EXPR;
+import static org.intellij.xquery.psi.XQueryTypes.ENCLOSED_CONTENT_EXPRESSION;
 import static org.intellij.xquery.psi.XQueryTypes.DIR_ELEM_CONTENT;
-import static org.intellij.xquery.psi.XQueryTypes.ENCLOSED_EXPR;
+import static org.intellij.xquery.psi.XQueryTypes.ENCLOSED_EXPRESSION;
 import static org.intellij.xquery.psi.XQueryTypes.EQ;
 import static org.intellij.xquery.psi.XQueryTypes.EQUAL;
 import static org.intellij.xquery.psi.XQueryTypes.EQUALITY_COMP;
@@ -130,11 +130,6 @@ import static org.intellij.xquery.psi.XQueryTypes.VALUE_COMP;
 import static org.intellij.xquery.psi.XQueryTypes.VAR_VALUE;
 import static org.intellij.xquery.psi.XQueryTypes.WHERE_CLAUSE;
 
-/**
- * User: ligasgr
- * Date: 21/08/13
- * Time: 19:37
- */
 public class XQueryFormattingBlock extends AbstractBlock {
 
     private static final Set<IElementType> BIN_OPERATORS = ContainerUtil.set(
@@ -227,11 +222,11 @@ public class XQueryFormattingBlock extends AbstractBlock {
     }
 
     private boolean isExprInsideOfEnclosedExpr(IElementType type, IElementType parentType) {
-        return type == EXPR && parentType == ENCLOSED_EXPR;
+        return type == EXPR && parentType == ENCLOSED_EXPRESSION;
     }
 
     private boolean isExpressionAfterBrace(IElementType type, IElementType typeOfPreviousElement) {
-        return (type == EXPR || type == CONTENT_EXPR) && typeOfPreviousElement == L_C_BRACE;
+        return (type == EXPR || type == ENCLOSED_CONTENT_EXPRESSION) && typeOfPreviousElement == L_C_BRACE;
     }
 
     private boolean isExpressionAfterParenthesis(IElementType type, IElementType typeOfPreviousElement) {
@@ -251,7 +246,7 @@ public class XQueryFormattingBlock extends AbstractBlock {
     }
 
     private Indent calculateChildIndent(IElementType type, boolean fromCalculatedType) {
-        if (type == ENCLOSED_EXPR || type == FUNCTION_DECL || (! fromCalculatedType && type == PARENTHESIZED_EXPR)
+        if (type == ENCLOSED_EXPRESSION || type == FUNCTION_DECL || (! fromCalculatedType && type == PARENTHESIZED_EXPR)
                 || type == LET_BINDING || type == OP_ASSIGN || type == RETURN_CLAUSE
                 || (! fromCalculatedType && type == TRY_CLAUSE) || (! fromCalculatedType && type == CATCH_CLAUSE)
                 || type == CATCH_CLAUSE_EXPRESSION)

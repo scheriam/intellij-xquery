@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +18,11 @@
 package org.intellij.xquery.settings;
 
 
+import com.intellij.configurationStore.DirectoryBasedStorage;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.components.StoragePathMacros;
-import com.intellij.openapi.components.StorageScheme;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.ModificationTracker;
 import com.intellij.util.xmlb.XmlSerializerUtil;
@@ -33,9 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 
 @State(name = "XQuerySettings", storages = {
-        @Storage(id = "xqueryInProjectFile", file = StoragePathMacros.PROJECT_FILE),
-        @Storage(id = "xqueryInDirectory", file = StoragePathMacros.PROJECT_CONFIG_DIR + "/xquery.xml",
-                scheme = StorageScheme.DIRECTORY_BASED)
+        @Storage(value = "xquery.xml")
 })
 public class XQuerySettings implements PersistentStateComponent<XQuerySettings>, ModificationTracker {
 
@@ -120,5 +117,9 @@ public class XQuerySettings implements PersistentStateComponent<XQuerySettings>,
 
     public boolean isMarklogicFlavour() {
         return XQueryFlavour.MARKLOGIC == getFlavour();
+    }
+
+    public boolean isFlavourWithVersion31() {
+        return XQueryFlavour.BASEX == getFlavour() || XQueryFlavour.EXIST == getFlavour() || XQueryFlavour.SAXON == getFlavour() || XQueryFlavour.STANDARD_31 == getFlavour();
     }
 }

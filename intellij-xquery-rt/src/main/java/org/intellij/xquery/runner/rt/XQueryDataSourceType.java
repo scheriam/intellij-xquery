@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,10 @@
 
 package org.intellij.xquery.runner.rt;
 
+import org.intellij.xquery.runner.rt.vendor.basex.BaseXLocalRunnerAppFactory;
+import org.intellij.xquery.runner.rt.vendor.basex.BaseXRunnerAppFactory;
+import org.intellij.xquery.runner.rt.vendor.exist.ExistRunnerAppFactory;
+import org.intellij.xquery.runner.rt.vendor.marklogic.MarklogicRunnerAppFactory;
 import org.intellij.xquery.runner.rt.vendor.saxon.SaxonRunnerAppFactory;
 import org.intellij.xquery.runner.rt.xqj.XQJRunnerAppFactory;
 import org.intellij.xquery.runner.rt.xqj.datasource.BaseXLocalXQDataSourceFactory;
@@ -28,55 +32,65 @@ import org.intellij.xquery.runner.rt.xqj.datasource.SednaXQDataSourceFactory;
 import org.intellij.xquery.runner.rt.xqj.datasource.XQDataSourceFactory;
 import org.intellij.xquery.runner.rt.xqj.datasource.ZorbaXQDataSourceFactory;
 
-import javax.swing.Icon;
+import javax.swing.*;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
-/**
- * User: ligasgr
- * Date: 02/10/13
- * Time: 14:19
- */
 public enum XQueryDataSourceType {
+    MARKLOGIC_NATIVE("MarkLogic (XCC)", false, true, asList("marklogic-xcc-.+.jar", "groovy-all-2\\..+\\.jar"), MarklogicRunnerAppFactory.class, true, true),
+    MARKLOGIC("MarkLogic (XQJ)", false, true, asList("marklogic-xqj-1.0.0.jar", "groovy-all-2\\..+.jar"), false, MarklogicXQDataSourceFactory.class),
     SAXON("Saxon", true, false, asList("saxon9he.jar", "saxon9-xqj.jar"), true, SaxonXQDataSourceFactory.class),
-    MARKLOGIC("MarkLogic", false, true, asList("marklogic-xqj-1.0.0.jar"), false, MarklogicXQDataSourceFactory.class),
     EXIST("eXist", false, true, asList("exist-xqj-1.0.1.jar"), false, ExistXQDataSourceFactory.class),
-    BASEX("BaseX", false, true, asList("basex-xqj-1.4.0.jar"), false, BaseXXQDataSourceFactory.class),
+    BASEX("BaseX", false, true, asList("basex-xqj-1.6.0.jar"), false, BaseXXQDataSourceFactory.class),
+    BASEX_LOCAL("BaseX (embedded)", false, false, asList("basex-xqj-1.6.0.jar", "basex-8.4.3.jar"), false, BaseXLocalXQDataSourceFactory.class),
     SEDNA("Sedna", false, true, asList("sedna-xqj-1.0.0.jar"), false, SednaXQDataSourceFactory.class),
     ZORBA("Zorba", false, false, asList("zorba_xqj.jar", "zorba_api.jar"), false, ZorbaXQDataSourceFactory.class),
-    SAXON_NATIVE("Saxon (native)", true, false, asList("saxon9he.jar"), SaxonRunnerAppFactory.class),
-    BASEX_LOCAL("BaseX (embedded)", false, false, asList("basex-xqj-1.4.0.jar", "basex-8.1.1.jar"), false,
-            BaseXLocalXQDataSourceFactory.class);
+    SAXON_NATIVE("Saxon (native)", true, false, asList("saxon9he.jar"), SaxonRunnerAppFactory.class, true),
+    EXIST_NATIVE("eXist (native)", false, true, asList("commons-codec-1.10.jar"), ExistRunnerAppFactory.class, false),
+    BASEX_NATIVE("BaseX (native)", false, true, asList("basex-8.4.3.jar"), BaseXRunnerAppFactory.class, false),
+    BASEX_NATIVE_LOCAL("BaseX (native embedded)", false, false, asList("basex-8.4.3.jar"), BaseXLocalRunnerAppFactory.class, false);
+
     private final List<String> classpathEntries;
     private final boolean jarContainsXqjApi;
     private final Class<? extends XQDataSourceFactory> xqDataSourceFactoryClass;
     private final Class<? extends RunnerAppFactory> runnerAppFactoryClass;
-    private String presentableName;
-    private boolean configFileSupported;
-    private boolean connectionPropertiesSupported;
+    private final boolean debugSupported;
+    private final boolean marklogicDebugSupported;
+    private final String presentableName;
+    private final boolean configFileSupported;
+    private final boolean connectionPropertiesSupported;
 
-    private XQueryDataSourceType(String presentableName, boolean configFileSupported,
-                                 boolean connectionPropertiesSupported,
-                                 List<String> classpathEntries,
-                                 Class<? extends RunnerAppFactory> runnerAppFactoryClass) {
+    XQueryDataSourceType (String presentableName, boolean configFileSupported, boolean connectionPropertiesSupported, List<String> classpathEntries,
+            Class<? extends RunnerAppFactory> runnerAppFactoryClass, boolean debugSupported, boolean marklogicDebugSupported)
+    {
+        this (presentableName, configFileSupported, connectionPropertiesSupported, classpathEntries, true, null, runnerAppFactoryClass, debugSupported, marklogicDebugSupported);
+    }
+
+    XQueryDataSourceType(String presentableName, boolean configFileSupported,
+                         boolean connectionPropertiesSupported,
+                         List<String> classpathEntries,
+                         Class<? extends RunnerAppFactory> runnerAppFactoryClass,
+                         boolean debugSupported) {
         this(presentableName, configFileSupported, connectionPropertiesSupported, classpathEntries, true, null,
-                runnerAppFactoryClass);
+                runnerAppFactoryClass, debugSupported, false);
     }
 
-    private XQueryDataSourceType(String presentableName, boolean configFileSupported,
-                                 boolean connectionPropertiesSupported,
-                                 List<String> classpathEntries, boolean jarContainsXqjApi,
-                                 Class<? extends XQDataSourceFactory> xqDataSourceFactoryClass) {
+    XQueryDataSourceType(String presentableName, boolean configFileSupported,
+                         boolean connectionPropertiesSupported,
+                         List<String> classpathEntries, boolean jarContainsXqjApi,
+                         Class<? extends XQDataSourceFactory> xqDataSourceFactoryClass) {
         this(presentableName, configFileSupported, connectionPropertiesSupported, classpathEntries, jarContainsXqjApi,
-                xqDataSourceFactoryClass, XQJRunnerAppFactory.class);
+                xqDataSourceFactoryClass, XQJRunnerAppFactory.class, false, false);
     }
 
-    private XQueryDataSourceType(String presentableName, boolean configFileSupported,
-                                 boolean connectionPropertiesSupported,
-                                 List<String> classpathEntries, boolean jarContainsXqjApi,
-                                 Class<? extends XQDataSourceFactory> xqDataSourceFactoryClass,
-                                 Class<? extends RunnerAppFactory> runnerAppFactoryClass) {
+    XQueryDataSourceType(String presentableName, boolean configFileSupported,
+                         boolean connectionPropertiesSupported,
+                         List<String> classpathEntries, boolean jarContainsXqjApi,
+                         Class<? extends XQDataSourceFactory> xqDataSourceFactoryClass,
+                         Class<? extends RunnerAppFactory> runnerAppFactoryClass,
+                         boolean debugSupported,
+                         boolean marklogicDebugSupported) {
         this.presentableName = presentableName;
         this.configFileSupported = configFileSupported;
         this.connectionPropertiesSupported = connectionPropertiesSupported;
@@ -84,6 +98,8 @@ public enum XQueryDataSourceType {
         this.jarContainsXqjApi = jarContainsXqjApi;
         this.xqDataSourceFactoryClass = xqDataSourceFactoryClass;
         this.runnerAppFactoryClass = runnerAppFactoryClass;
+        this.debugSupported = debugSupported;
+        this.marklogicDebugSupported = marklogicDebugSupported;
     }
 
     public static XQueryDataSourceType getForName(String name) {
@@ -125,5 +141,13 @@ public enum XQueryDataSourceType {
 
     public Class<? extends RunnerAppFactory> getRunnerAppFactoryClass() {
         return runnerAppFactoryClass;
+    }
+
+    public boolean isDebugSupported() {
+        return debugSupported;
+    }
+
+    public boolean isMarklogicDebugSupported() {
+        return marklogicDebugSupported;
     }
 }

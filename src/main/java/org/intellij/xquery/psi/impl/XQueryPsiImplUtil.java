@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,8 @@ import com.intellij.psi.util.PsiElementFilter;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.intellij.xquery.icons.XQueryIcons;
 import org.intellij.xquery.psi.XQueryAnnotation;
+import org.intellij.xquery.psi.XQueryArrowFunctionReference;
+import org.intellij.xquery.psi.XQueryArrowFunctionSpecifier;
 import org.intellij.xquery.psi.XQueryAttrLocalName;
 import org.intellij.xquery.psi.XQueryAttrNamespace;
 import org.intellij.xquery.psi.XQueryElementFactory;
@@ -173,11 +175,12 @@ public class XQueryPsiImplUtil {
         return null;
     }
 
-    private static String stripApostrophes(String text) {
+    public static String stripApostrophes(String text) {
         return text.replaceAll("\"", "").replaceAll("'", "");
     }
 
     public static PsiReference getReference(XQueryFunctionInvocation element) {
+        if (element.getFunctionName() == null) return null;
         int localNameOffset = 0;
         if (element.getFunctionName().getPrefix() != null) {
             localNameOffset += element.getFunctionName().getPrefix().getTextLength() + SEPARATOR_LENGTH;
@@ -344,6 +347,10 @@ public class XQueryPsiImplUtil {
             return ((XQueryFunctionDecl) element.getParent()).getPresentation();
         }
         return null;
+    }
+
+    public static int getArity(XQueryArrowFunctionReference functionCall) {
+        return functionCall.getArgumentList().getArgumentList().size() + 1;
     }
 
     public static int getArity(XQueryFunctionCall functionCall) {
@@ -708,8 +715,8 @@ public class XQueryPsiImplUtil {
                 String elementName = functionName.getLocalNameText();
                 String anotherName = anotherFunctionName.getLocalNameText();
                 return elementFile.equals(anotherFile)
-                        && elementNamespace.equals(anotherNamespace)
-                        && elementName != null && elementName.equals(anotherName);
+                        && ((elementNamespace != null) && elementNamespace.equals(anotherNamespace))
+                        && ((elementName != null) && elementName.equals(anotherName));
             }
         }
         return false;
@@ -723,6 +730,14 @@ public class XQueryPsiImplUtil {
         return processChildrenIfPlaceIsNotPartOfSameBinding(module, processor, state, lastParent, place, XQueryLetBinding.class, XQueryExprSingle.class);
     }
 
+    public static XQueryFunctionName getFunctionName(XQueryArrowFunctionReference functionReference) {
+        if (functionReference.getArrowFunctionSpecifier().getFunctionName() != null) {
+            return functionReference.getArrowFunctionSpecifier().getFunctionName();
+        }
+        return null;
+    }
+
+    @SafeVarargs
     private static <T extends XQueryPsiElement, U extends XQueryPsiElement>boolean processChildrenIfPlaceIsNotPartOfSameBinding(T module,
             @NotNull PsiScopeProcessor processor, @NotNull ResolveState state, PsiElement lastParent,
             @NotNull PsiElement place, Class<T> bindingClass, Class<U>... childClassesToSkip) {

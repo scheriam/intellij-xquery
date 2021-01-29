@@ -1,5 +1,6 @@
 /*
- * Copyright 2013 Grzegorz Ligas
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,9 +71,10 @@ import java.util.Stack;
       put(URIQUALIFIED, "URIQUALIFIED");
       put(EXPRESSION_IN_APOS_STRING, "EXPRESSION_IN_APOS_STRING");
       put(EXPRESSION, "EXPRESSION");
-      put(YYINITIAL, "YYINITIAL");
+      put(EXPRESSION_IN_STRING_CONSTR, "EXPRESSION_IN_STRING_CONSTR");
       put(APOS_STRING, "APOS_STRING");
       put(ATTR_LIST, "ATTR_LIST");
+      put(STRING_CONSTR, "STRING_CONSTR");
     }
   };
 
@@ -96,8 +98,8 @@ import java.util.Stack;
 
   private void popState() {
     if (stack.empty()) {
-      log("popState is defaulting to YYINITIAL");
-      yybegin(YYINITIAL);
+      log("popState is defaulting to EXPRESSION");
+      yybegin(EXPRESSION);
     } else {
       int state = stack.pop();
       log("popState is changing from " + state(yystate()) + "(" + yystate() + ") to " + state(state) + "(" + state + ")");
@@ -132,7 +134,6 @@ import java.util.Stack;
 IntegerLiteral={Digits}
 DecimalLiteral=("." {Digits}) | ({Digits} "." [0-9]*)               	                    /* ws: explicit */
 DoubleLiteral=(("." {Digits}) | ({Digits} ("." [0-9]*)?)) [eE] [+-]? {Digits}             	/* ws: explicit */
-StringLiteral=("\"" ({PredefinedEntityRef} | {CharRef} | {EscapeQuot} | [^\"&])* "\"") | ("'" ({PredefinedEntityRef} | {CharRef} | {EscapeApos} | [^'&])* "'") 	/* ws: explicit */
 URIQualifiedName={BracedURILiteral} {NCName}                                                /* ws: explicit */
 BracedURILiteral="Q" "{" ({PredefinedEntityRef} | {CharRef} | [^&{}]    )* "}"                  /* ws: explicit */
 PredefinedEntityRef="&" ("lt" | "gt" | "amp" | "quot" | "apos" | "bdquo" | "brvbar" | "bull" | "circ" | "copy" | "emsp" | "ensp" | "hellip" | "iexcl" | "iquest" | "laquo" | "ldquo" | "lsaquo" | "lsquo" | "mdash" | "nbsp" |  "dash" | "oline" | "prime" | "Prime" | "raquo" | "rdquo" | "rsaquo" | "rsquo" | "sbquo" | "thinsp" | "tilde" | "uml" | "acute" | "cedil" | "cent" | "curren" | "deg" | "divide" | "macr" | "micro" | "middot" | "not" | "ordf" | "ordm" | "para" | "plusmn" | "pound" | "sect" | "times" | "yen") ";"                         /* ws: explicit */
@@ -176,6 +177,8 @@ SC=({S} | "(:" {Char}* ~":)")+
 %state EXPRESSION_IN_QUOT_STRING
 %state EXPRESSION_IN_APOS_STRING
 %state EXPRESSION
+%state STRING_CONSTR
+%state EXPRESSION_IN_STRING_CONSTR
 // helper states for better support of live syntax highlighting
 %state XQUERY_RECOGNITION
 %state DECLARATION_RECOGNITION
@@ -191,14 +194,18 @@ SC=({S} | "(:" {Char}* ~":)")+
 %state UPDATE_FACILITY
 %%
 
+<YYINITIAL> {
+{S}                                        {return TokenType.WHITE_SPACE;}
+. {{yypushback(yylength()); pushState(EXPRESSION); return TokenType.WHITE_SPACE;}}
+}
 
-<YYINITIAL,EXPRESSION_IN_QUOT_STRING,EXPRESSION_IN_APOS_STRING,EXPRESSION> {
+<EXPRESSION_IN_QUOT_STRING,EXPRESSION_IN_APOS_STRING,EXPRESSION,EXPRESSION_IN_STRING_CONSTR> {
 {S}                                        {return TokenType.WHITE_SPACE;}
 {DecimalLiteral}                           {return XQueryTypes.DECIMALLITERAL;}
 {DoubleLiteral}                            {return XQueryTypes.DOUBLELITERAL;}
 {IntegerLiteral}                           {return XQueryTypes.INTEGERLITERAL;}
-"\""                                       {pushState(QUOT_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
-"'"                                        {pushState(APOS_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
+"\""                                       {pushState(QUOT_STRING_SIMPLE);return XQueryTypes.OPENINGQUOT;}
+"'"                                        {pushState(APOS_STRING_SIMPLE);return XQueryTypes.OPENINGAPOS;}
 "Q{"                                       {pushState(URIQUALIFIED); yypushback(2);}
 "(:~"                                      {pushState(DOC_COMMENT);return XQueryBasicTypes.DOC_COMMENT_START;}
 "(:"                                       {pushState(EXPR_COMMENT);return XQueryBasicTypes.EXPR_COMMENT_START;}
@@ -210,10 +217,13 @@ SC=({S} | "(:" {Char}* ~":)")+
 "<" / {SC}? {IntegerLiteral}               {return XQueryTypes.LT_CHAR;}
 "<" / {SC}? {DecimalLiteral}               {return XQueryTypes.LT_CHAR;}
 "<" / {SC}? {DoubleLiteral}                {return XQueryTypes.LT_CHAR;}
-"<" / {SC}? {NCName} {S}? "(:"            {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART;}
-"<" / {SC}? {NCName} {S}? "("             {return XQueryTypes.LT_CHAR;}
+"<" / {SC}? {NCName} {S}? "(:"             {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART;}
+"<" / {NCName} {S} "("                     {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART;}
+"<" / {SC}? {NCName} {S}? "("              {return XQueryTypes.LT_CHAR;}
 "<" / {SC}? {NCName} {SC}? ":" {SC}? {NCName} {S}? "(:" {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART;}
+"<" / {NCName} ":" {NCName} {S} "("        {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART;}
 "<" / {SC}? {NCName} {SC}? ":" {SC}? {NCName} {S}? "(" {return XQueryTypes.LT_CHAR;}
+"<" / {SC}? "("                            {return XQueryTypes.LT_CHAR;}
 "<"                                        {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART;}
 "<="                                       {return XQueryTypes.LE_CHARS;}
 ">="                                       {return XQueryTypes.GE_CHARS;}
@@ -228,10 +238,10 @@ SC=({S} | "(:" {Char}* ~":)")+
 ">" / {SC}? {NCName} {SC}? ":" {SC}? {NCName} {SC}? "(" {return XQueryTypes.GT_CHAR;}
 ">"                                        {return XQueryTypes.XMLTAGEND;}
 "@"                                        {pushState(QNAME);return XQueryTypes.AT_SIGN;}
-"//" / {SC}? ("item"|"node"|"document-node"|"text"|"element"|"map"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "("  {return XQueryTypes.SLASH_SLASH;}
+"//" / {SC}? ("item"|"node"|"document-node"|"text"|"element"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "("  {return XQueryTypes.SLASH_SLASH;}
 "//" / {SC}? ("child"|"descendant"|"attribute"|"self"|"descendant-or-self"|"following-sibling"|"following"|"parent"|"ancestor"|"preceding-sibling"|"preceding"|"ancestor-or-self"|"namespace") {SC}? "::" {return XQueryTypes.SLASH_SLASH;}
 "//"                                       {pushState(QNAME);return XQueryTypes.SLASH_SLASH;}
-"/" / {SC}? ("item"|"node"|"document-node"|"text"|"element"|"map"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "("  {return XQueryTypes.SLASH;}
+"/" / {SC}? ("item"|"node"|"document-node"|"text"|"element"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "("  {return XQueryTypes.SLASH;}
 "/" / {SC}? ("child"|"descendant"|"attribute"|"self"|"descendant-or-self"|"following-sibling"|"following"|"parent"|"ancestor"|"preceding-sibling"|"preceding"|"ancestor-or-self"|"namespace") {SC}? "::" {return XQueryTypes.SLASH;}
 "/"                                        {pushState(QNAME);return XQueryTypes.SLASH;}
 "+"                                        {return XQueryTypes.OP_PLUS;}
@@ -252,8 +262,12 @@ SC=({S} | "(:" {Char}* ~":)")+
 ")"                                        {return XQueryTypes.R_PAR;}
 "["                                        {return XQueryTypes.L_BRACKET;}
 "]"                                        {return XQueryTypes.R_BRACKET;}
-"{"                                        {pushState(YYINITIAL); return XQueryTypes.L_C_BRACE;}
+"{"                                        {pushState(EXPRESSION); return XQueryTypes.L_C_BRACE;}
 "}"                                        {popState(); return XQueryTypes.R_C_BRACE;}
+"``["                                      {pushState(STRING_CONSTR); return XQueryTypes.STRING_CONSTR_START;}
+"]``"                                      {popState(); return XQueryTypes.STRING_CONSTR_END;}
+"}`"                                       {popState(); return XQueryTypes.STRING_CONSTR_EXPR_END;}
+"`"                                        {return XQueryTypes.BACKTICK;}
 ","                                        {return XQueryTypes.COMMA;}
 "!="                                       {return XQueryTypes.NOT_EQUAL;}
 "="                                        {return XQueryTypes.EQUAL;}
@@ -262,6 +276,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "||"                                       {return XQueryTypes.PIPE_PIPE;}
 "|"                                        {return XQueryTypes.PIPE;}
 "!"                                        {return XQueryTypes.EXCLAMATION_MARK;}
+"=>"                                       {return XQueryTypes.OP_ARROW;}
 "eq"                                       {return XQueryTypes.EQ;}
 "ne"                                       {return XQueryTypes.NE;}
 "lt"                                       {return XQueryTypes.LT;}
@@ -277,9 +292,9 @@ SC=({S} | "(:" {Char}* ~":)")+
 "least" / {SC}? (";"|",")                  {return XQueryTypes.K_LEAST;}
 "least" / {SC} ("for"|"let"|"order"|"stable"|"group"|"count"|"return"|"collation") {return XQueryTypes.K_LEAST;}
 "ascending" / {SC}? ","                    {return XQueryTypes.K_ASCENDING;}
-"ascending" / {SC} ("empty"|"collation"|"for"|"let"|"order"|"stable"|"group"|"count"|"return"|",")   {return XQueryTypes.K_ASCENDING;}
+"ascending" / {SC} ("empty"|"collation"|"for"|"let"|"order"|"stable"|"group"|"count"|"return"|"where"|",")   {return XQueryTypes.K_ASCENDING;}
 "descending" / {SC}? ","                   {return XQueryTypes.K_DESCENDING;}
-"descending" / {SC} ("empty"|"collation"|"for"|"let"|"order"|"stable"|"group"|"count"|"return"|",")  {return XQueryTypes.K_DESCENDING;}
+"descending" / {SC} ("empty"|"collation"|"for"|"let"|"order"|"stable"|"group"|"count"|"return"|"where"|",")  {return XQueryTypes.K_DESCENDING;}
 "collation" / {SC} ("\""|"'")              {return XQueryTypes.K_COLLATION;}
 "import"                                   {yypushback(yylength()); pushState(IMPORT_RECOGNITION); return TokenType.WHITE_SPACE;}
 "module"                                   {yypushback(yylength()); pushState(MODULE_RECOGNITION); return TokenType.WHITE_SPACE;}
@@ -296,7 +311,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "case"                                     {return XQueryTypes.K_CASE;}
 "and"                                      {return XQueryTypes.K_AND;}
 "or"                                       {return XQueryTypes.K_OR;}
-"as"/ ({SC}? "(" {SC}?|{SC}) (("item"|"node"|"document-node"|"text"|"element"|"map"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "(")                        {pushState(ITEM_TYPE); return XQueryTypes.K_AS;}
+"as"/ ({SC}? "(" {SC}?|{SC}) (("item"|"node"|"document-node"|"text"|"element"|"map"|"array"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "(")                        {pushState(ITEM_TYPE); return XQueryTypes.K_AS;}
 "as"                                       {return XQueryTypes.K_AS;}
 "to"                                       {return XQueryTypes.K_TO;}
 "where"                                    {return XQueryTypes.K_WHERE;}
@@ -344,6 +359,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "validate"                                 {yypushback(yylength()); pushState(VALIDATE_RECOGNITION); return TokenType.WHITE_SPACE;}
 "order"                                    {yypushback(yylength()); pushState(BY_RECOGNITION); return TokenType.WHITE_SPACE;}
 "map" / {SC}? "("                          {pushState(ITEM_TYPE); return XQueryTypes.K_MAP;}
+"array" / {SC}? "("                        {pushState(ITEM_TYPE); return XQueryTypes.K_ARRAY;}
 "attribute" / {SC}?"("                     {pushState(ITEM_TYPE); return XQueryTypes.K_ATTRIBUTE;}
 "document-node" / {SC}? "("                {pushState(ITEM_TYPE); return XQueryTypes.K_DOCUMENT_NODE;}
 "element" / {SC}?"("                       {pushState(ITEM_TYPE); return XQueryTypes.K_ELEMENT;}
@@ -356,6 +372,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "node" / {SC}? "("                         {return XQueryTypes.K_NODE;}
 "namespace-node" / {SC}? "("               {return XQueryTypes.K_NAMESPACE_NODE;}
 "map" / {SC}? "{"                          {return XQueryTypes.K_MAP;}
+"array" / {SC}? "{"                        {return XQueryTypes.K_ARRAY;}
 "attribute" / ({SC}?"{"|{SC}{NCName})      {return XQueryTypes.K_ATTRIBUTE;}
 "comment" / {SC}? ("("|"{")                {return XQueryTypes.K_COMMENT;}
 "element" / ({SC}?"{"| {SC}{NCName})       {return XQueryTypes.K_ELEMENT;}
@@ -429,8 +446,8 @@ SC=({S} | "(:" {Char}* ~":)")+
 {S}                                        {return TokenType.WHITE_SPACE;}
 {NCName}                                   {pushState(ATTR_QNAME);yypushback(yylength());return TokenType.WHITE_SPACE;}
 "="                                        {return XQueryTypes.ATTREQUAL;}
-"\""                                       {pushState(QUOT_STRING); return XQueryTypes.QUOT;}
-"'"                                        {pushState(APOS_STRING); return XQueryTypes.APOSTROPHE;}
+"\""                                       {pushState(QUOT_STRING); return XQueryTypes.OPENINGQUOT;}
+"'"                                        {pushState(APOS_STRING); return XQueryTypes.OPENINGAPOS;}
 .                                          {yypushback(yylength()); popState(); return TokenType.WHITE_SPACE;}
 }
 
@@ -452,6 +469,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "{"                                        {pushState(EXPRESSION); return XQueryTypes.L_C_BRACE; }
 "</"                                       {popState(); pushState(END_TAG); return XQueryTypes.XMLENDTAGSTART;}
 "<"                                        {pushState(START_TAG); return XQueryTypes.XMLSTARTTAGSTART; }
+.                                          {yypushback(yylength()); popState(); return TokenType.WHITE_SPACE;}
 }
 
 <DIR_COMMENT> {
@@ -469,13 +487,20 @@ SC=({S} | "(:" {Char}* ~":)")+
 .                                          {yypushback(yylength()); popState(); return TokenType.WHITE_SPACE;}
 }
 
+<STRING_CONSTR> {
+"`{"                                       {pushState(EXPRESSION_IN_STRING_CONSTR); return XQueryTypes.STRING_CONSTR_EXPR_START;}
+"}`"                                       {return XQueryTypes.STRING_CONSTR_EXPR_END;}
+"]``"                                      {popState(); return XQueryTypes.STRING_CONSTR_END;}
+{Char}                                     {return XQueryTypes.CHAR;}
+}
+
 <QUOT_STRING> {
 {PredefinedEntityRef}                      {return XQueryTypes.PREDEFINEDENTITYREF;}
 {CharRef}                                  {return XQueryTypes.CHARREF;}
 "{{"                                       {return XQueryTypes.DBL_L_C_BRACE;}
 "}}"                                       {return XQueryTypes.DBL_R_C_BRACE;}
 "{"                                        {pushState(EXPRESSION_IN_QUOT_STRING); return XQueryTypes.L_C_BRACE; }
-"\""                                       {popState(); return XQueryTypes.QUOT;}
+"\""                                       {popState(); return XQueryTypes.CLOSINGQUOT;}
 {Char}                                     {return XQueryTypes.CHAR;}
 }
 
@@ -485,7 +510,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "{{"                                       {return XQueryTypes.DBL_L_C_BRACE;}
 "}}"                                       {return XQueryTypes.DBL_R_C_BRACE;}
 "{"                                        {pushState(EXPRESSION_IN_APOS_STRING); return XQueryTypes.L_C_BRACE; }
-"'"                                        {popState(); return XQueryTypes.APOSTROPHE;}
+"'"                                        {popState(); return XQueryTypes.CLOSINGAPOS;}
 {Char}                                     {return XQueryTypes.CHAR;}
 }
 
@@ -495,8 +520,11 @@ SC=({S} | "(:" {Char}* ~":)")+
 <EXPRESSION_IN_APOS_STRING> {
 .                                          {yypushback(yylength()); popStateOrDefaultTo(APOS_STRING); return TokenType.WHITE_SPACE;}
 }
+<EXPRESSION_IN_STRING_CONSTR> {
+.                                          {yypushback(yylength()); popStateOrDefaultTo(STRING_CONSTR); return TokenType.WHITE_SPACE;}
+}
 <EXPRESSION> {
-.                                          {yypushback(yylength()); popState(); return TokenType.WHITE_SPACE;}
+.                                          {return TokenType.BAD_CHARACTER;}
 }
 
 <URIQUALIFIED> {
@@ -520,8 +548,8 @@ SC=({S} | "(:" {Char}* ~":)")+
 
 <XQUERY_RECOGNITION> {
 {S}                                        {return TokenType.WHITE_SPACE;}
-"\""                                       {pushState(QUOT_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
-"'"                                        {pushState(APOS_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
+"\""                                       {pushState(QUOT_STRING_SIMPLE);return XQueryTypes.OPENINGQUOT;}
+"'"                                        {pushState(APOS_STRING_SIMPLE);return XQueryTypes.OPENINGAPOS;}
 "xquery" / {S} ("encoding"|"version")      {return XQueryTypes.K_XQUERY;}
 "version"                                  {return XQueryTypes.K_VERSION;}
 "encoding"                                 {return XQueryTypes.K_ENCODING;}
@@ -535,8 +563,8 @@ SC=({S} | "(:" {Char}* ~":)")+
 "(:"                                       {pushState(EXPR_COMMENT);return XQueryBasicTypes.EXPR_COMMENT_START;}
 "{"                                        {pushState(EXPRESSION);return XQueryTypes.L_C_BRACE;}
 "="                                        {return XQueryTypes.EQUAL;}
-"\""                                       {pushState(QUOT_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
-"'"                                        {pushState(APOS_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
+"\""                                       {pushState(QUOT_STRING_SIMPLE);return XQueryTypes.OPENINGQUOT;}
+"'"                                        {pushState(APOS_STRING_SIMPLE);return XQueryTypes.OPENINGAPOS;}
 "declare" / {SC} ("boundary-space"|"default"|"base-uri"|"construction"|"ordering"|"copy-namespaces"|"decimal-format"|"namespace"|"context"|"option"|"function"|"variable"|"%"|"updating"|"revalidation"|"private") {return XQueryTypes.K_DECLARE;}
 "default"                                  {pushState(DEFAULT_RECOGNITION);return XQueryTypes.K_DEFAULT;}
 "base-uri"                                 {return XQueryTypes.K_BASE_URI;}
@@ -562,10 +590,11 @@ SC=({S} | "(:" {Char}* ~":)")+
 "zero-digit"                               {return XQueryTypes.K_ZERO_DIGIT;}
 "digit"                                    {return XQueryTypes.K_DIGIT;}
 "pattern-separator"                        {return XQueryTypes.K_PATTERN_SEPARATOR;}
+"exponent-separator"                       {return XQueryTypes.K_EXPONENT_SEPARATOR;}
 "namespace"                                {return XQueryTypes.K_NAMESPACE;}
 "context"                                  {return XQueryTypes.K_CONTEXT;}
 "item"                                     {return XQueryTypes.K_ITEM;}
-"as"/ ({SC}? "(" {SC}?|{SC}) (("item"|"node"|"document-node"|"text"|"element"|"map"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "(" | {NCName})                        {pushState(ITEM_TYPE); return XQueryTypes.K_AS;}
+"as"/ ({SC}? "(" {SC}?|{SC}) (("item"|"node"|"document-node"|"text"|"element"|"map"|"array"|"attribute"|"schema-element"|"schema-attribute"|"processing-instruction"|"comment"|"namespace-node"|"%"|"function"|"binary"|"object-node"|"number-node"|"boolean-node"|"null-node"|"array-node") {SC}? "(" | {NCName})                        {pushState(ITEM_TYPE); return XQueryTypes.K_AS;}
 "empty-sequence"                           {return XQueryTypes.K_EMPTY_SEQUENCE;}
 "item"                                     {return XQueryTypes.K_ITEM;}
 "external"                                 {return XQueryTypes.K_EXTERNAL;}
@@ -593,8 +622,8 @@ SC=({S} | "(:" {Char}* ~":)")+
 
 <IMPORT_RECOGNITION> {
 {S}                                        {return TokenType.WHITE_SPACE;}
-"\""                                       {pushState(QUOT_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
-"'"                                        {pushState(APOS_STRING_SIMPLE);yypushback(yylength());return TokenType.WHITE_SPACE;}
+"\""                                       {pushState(QUOT_STRING_SIMPLE);return XQueryTypes.OPENINGQUOT;}
+"'"                                        {pushState(APOS_STRING_SIMPLE);return XQueryTypes.OPENINGAPOS;}
 "(:~"                                      {pushState(DOC_COMMENT);return XQueryBasicTypes.DOC_COMMENT_START;}
 "(:"                                       {pushState(EXPR_COMMENT);return XQueryBasicTypes.EXPR_COMMENT_START;}
 "import" / {SC} ("schema"|"module")        {return XQueryTypes.K_IMPORT;}
@@ -634,16 +663,22 @@ SC=({S} | "(:" {Char}* ~":)")+
 
 
 <QUOT_STRING_SIMPLE> {
-"\""                                       {return XQueryTypes.QUOT;}
-{StringLiteral}                            {popState(); return XQueryTypes.STRINGLITERAL;}
-{Char}                                     {return XQueryTypes.CHAR;}
+{PredefinedEntityRef}                      {return XQueryTypes.PREDEFINEDENTITYREF;}
+{CharRef}                                  {return XQueryTypes.CHARREF;}
+{EscapeQuot}                               {return XQueryTypes.STRINGCHAR;}
+[^\"&]                                     {return XQueryTypes.STRINGCHAR;}
+"&"                                        {return XQueryTypes.AMPERSAND;}
+"\""                                       {popState(); return XQueryTypes.CLOSINGQUOT;}
 .                                          {yypushback(yylength()); popState(); return TokenType.WHITE_SPACE;}
 }
 
 <APOS_STRING_SIMPLE> {
-"'"                                        {return XQueryTypes.APOSTROPHE;}
-{StringLiteral}                            {popState(); return XQueryTypes.STRINGLITERAL;}
-{Char}                                     {return XQueryTypes.CHAR;}
+{PredefinedEntityRef}                      {return XQueryTypes.PREDEFINEDENTITYREF;}
+{CharRef}                                  {return XQueryTypes.CHARREF;}
+{EscapeApos}                               {return XQueryTypes.STRINGCHAR;}
+[^\'&]                                     {return XQueryTypes.STRINGCHAR;}
+"&"                                        {return XQueryTypes.AMPERSAND;}
+"'"                                        {popState(); return XQueryTypes.CLOSINGAPOS;}
 .                                          {yypushback(yylength()); popState(); return TokenType.WHITE_SPACE;}
 }
 
@@ -737,6 +772,7 @@ SC=({S} | "(:" {Char}* ~":)")+
 "document-node" / {SC}? "("                {return XQueryTypes.K_DOCUMENT_NODE;}
 "element" / {SC}? "("                      {return XQueryTypes.K_ELEMENT;}
 "map" / {SC}? "("                          {return XQueryTypes.K_MAP;}
+"array" / {SC}? "("                        {return XQueryTypes.K_ARRAY;}
 "namespace-node" / {SC}? "("               {return XQueryTypes.K_NAMESPACE_NODE;}
 "node" / {SC}? "("                         {return XQueryTypes.K_NODE;}
 "processing-instruction" / {SC}? "("       {return XQueryTypes.K_PI;}

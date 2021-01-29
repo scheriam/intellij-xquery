@@ -1,3 +1,20 @@
+/*
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * (see the CONTRIBUTORS file).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // This is a generated file. Not intended for manual editing.
 package org.intellij.xquery.psi;
 
@@ -67,6 +84,26 @@ public class XQueryVisitor extends PsiElementVisitor {
   }
 
   public void visitArgumentPlaceholder(@NotNull XQueryArgumentPlaceholder o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArrayConstructor(@NotNull XQueryArrayConstructor o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArrayTest(@NotNull XQueryArrayTest o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArrowExpr(@NotNull XQueryArrowExpr o) {
+    visitExprSingle(o);
+  }
+
+  public void visitArrowFunctionReference(@NotNull XQueryArrowFunctionReference o) {
+    visitFunctionInvocation(o);
+  }
+
+  public void visitArrowFunctionSpecifier(@NotNull XQueryArrowFunctionSpecifier o) {
     visitPsiElement(o);
   }
 
@@ -174,10 +211,6 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitCompMapConstructor(@NotNull XQueryCompMapConstructor o) {
-    visitPsiElement(o);
-  }
-
   public void visitCompNamespaceConstructor(@NotNull XQueryCompNamespaceConstructor o) {
     visitPsiElement(o);
   }
@@ -210,14 +243,6 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitConstructor(@NotNull XQueryConstructor o) {
-    visitPsiElement(o);
-  }
-
-  public void visitContentExpr(@NotNull XQueryContentExpr o) {
-    visitExprSingle(o);
-  }
-
   public void visitContextItemDecl(@NotNull XQueryContextItemDecl o) {
     visitPsiElement(o);
   }
@@ -231,6 +256,10 @@ public class XQueryVisitor extends PsiElementVisitor {
   }
 
   public void visitCountClause(@NotNull XQueryCountClause o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCurlyArrayConstructor(@NotNull XQueryCurlyArrayConstructor o) {
     visitPsiElement(o);
   }
 
@@ -322,8 +351,20 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitEnclosedExpr(@NotNull XQueryEnclosedExpr o) {
-    visitExprSingle(o);
+  public void visitEnclosedContentExpression(@NotNull XQueryEnclosedContentExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnclosedExpression(@NotNull XQueryEnclosedExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnclosedPrefixExpression(@NotNull XQueryEnclosedPrefixExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnclosedURIExpression(@NotNull XQueryEnclosedURIExpression o) {
+    visitPsiElement(o);
   }
 
   public void visitEqualityComp(@NotNull XQueryEqualityComp o) {
@@ -462,6 +503,10 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitKeySpecifier(@NotNull XQueryKeySpecifier o) {
+    visitPsiElement(o);
+  }
+
   public void visitKindTest(@NotNull XQueryKindTest o) {
     visitPsiElement(o);
   }
@@ -482,16 +527,28 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMapEntry(@NotNull XQueryMapEntry o) {
+  public void visitLookup(@NotNull XQueryLookup o) {
     visitPsiElement(o);
   }
 
-  public void visitMapEntryList(@NotNull XQueryMapEntryList o) {
+  public void visitMapConstructor(@NotNull XQueryMapConstructor o) {
     visitPsiElement(o);
+  }
+
+  public void visitMapConstructorEntry(@NotNull XQueryMapConstructorEntry o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMapKeyExpr(@NotNull XQueryMapKeyExpr o) {
+    visitExprSingle(o);
   }
 
   public void visitMapTest(@NotNull XQueryMapTest o) {
     visitPsiElement(o);
+  }
+
+  public void visitMapValueExpr(@NotNull XQueryMapValueExpr o) {
+    visitExprSingle(o);
   }
 
   public void visitMarklogicAnnotation(@NotNull XQueryMarklogicAnnotation o) {
@@ -630,6 +687,10 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitNodeConstructor(@NotNull XQueryNodeConstructor o) {
+    visitPsiElement(o);
+  }
+
   public void visitNodeTest(@NotNull XQueryNodeTest o) {
     visitPsiElement(o);
   }
@@ -734,10 +795,6 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
-  public void visitPrefixExpr(@NotNull XQueryPrefixExpr o) {
-    visitExprSingle(o);
-  }
-
   public void visitPreserveMode(@NotNull XQueryPreserveMode o) {
     visitPsiElement(o);
   }
@@ -798,6 +855,14 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitSaxonMapEntriesSeparator(@NotNull XQuerySaxonMapEntriesSeparator o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSaxonMapEntrySeparator(@NotNull XQuerySaxonMapEntrySeparator o) {
+    visitPsiElement(o);
+  }
+
   public void visitSchemaAttributeTest(@NotNull XQuerySchemaAttributeTest o) {
     visitPsiElement(o);
   }
@@ -842,12 +907,36 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitExprSingle(o);
   }
 
+  public void visitSquareArrayConstructor(@NotNull XQuerySquareArrayConstructor o) {
+    visitPsiElement(o);
+  }
+
   public void visitStepExpr(@NotNull XQueryStepExpr o) {
     visitExprSingle(o);
   }
 
   public void visitStringConcatExpr(@NotNull XQueryStringConcatExpr o) {
     visitExprSingle(o);
+  }
+
+  public void visitStringConstructor(@NotNull XQueryStringConstructor o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStringConstructorChars(@NotNull XQueryStringConstructorChars o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStringConstructorContent(@NotNull XQueryStringConstructorContent o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStringConstructorInterpolation(@NotNull XQueryStringConstructorInterpolation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStringLiteral(@NotNull XQueryStringLiteral o) {
+    visitPsiElement(o);
   }
 
   public void visitStringLiteralOrWildcard(@NotNull XQueryStringLiteralOrWildcard o) {
@@ -926,16 +1015,16 @@ public class XQueryVisitor extends PsiElementVisitor {
     visitExprSingle(o);
   }
 
-  public void visitURIExpr(@NotNull XQueryURIExpr o) {
-    visitExprSingle(o);
-  }
-
   public void visitURILiteral(@NotNull XQueryURILiteral o) {
     visitPsiElement(o);
   }
 
   public void visitUnaryExpr(@NotNull XQueryUnaryExpr o) {
     visitExprSingle(o);
+  }
+
+  public void visitUnaryLookup(@NotNull XQueryUnaryLookup o) {
+    visitPsiElement(o);
   }
 
   public void visitUnionExpr(@NotNull XQueryUnionExpr o) {

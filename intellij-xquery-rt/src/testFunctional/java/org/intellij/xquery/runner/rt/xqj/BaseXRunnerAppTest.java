@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,12 @@
 
 package org.intellij.xquery.runner.rt.xqj;
 
+import org.basex.BaseXClient;
+import org.basex.BaseXServer;
 import org.intellij.xquery.runner.rt.RunnerAppTest;
 import org.intellij.xquery.runner.rt.XQueryDataSourceType;
-import org.junit.Ignore;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.experimental.theories.DataPoints;
 
 import java.io.File;
@@ -33,13 +36,19 @@ import static org.intellij.xquery.runner.rt.XQueryItemType.XS_TOKEN;
 import static org.intellij.xquery.runner.rt.XQueryItemType.XS_UNTYPED_ATOMIC;
 import static org.intellij.xquery.runner.rt.XQueryRunConfigBuilder.runConfig;
 
-/**
- * User: ligasgr
- * Date: 16/03/14
- * Time: 16:08
- */
-@Ignore("works only when BaseX instance is up")
 public class BaseXRunnerAppTest extends RunnerAppTest {
+    private static BaseXServer server;
+
+    @BeforeClass
+    public static void startServer() throws Exception {
+        server = new BaseXServer();
+        new BaseXClient(new String[] {"-U", "admin", "-P", "admin", "-c", "CREATE DB test"});
+    }
+
+    @AfterClass
+    public static void stopServer() throws Exception {
+        server.stop();
+    }
 
     @DataPoints
     public static DataPair[] getBaseXCompatibleData() {
@@ -59,6 +68,16 @@ public class BaseXRunnerAppTest extends RunnerAppTest {
         return XQueryDataSourceType.BASEX.toString();
     }
 
+
+    protected String prepareConfigurationForMainFile(File xqueryMainFile) {
+        return runConfig()
+                .withTypeName(getDataSourceType())
+                .withMainFileName(xqueryMainFile.getAbsolutePath())
+                .withConnectionData("localhost", "1984", "admin", "admin")
+                .withDatabase("test")
+                .build();
+    }
+
     protected String prepareConfigurationWithContextItemForMainFile(File xqueryMainFile, String contextItemValue,
                                                                     String contextItemType) {
         return runConfig()
@@ -67,6 +86,7 @@ public class BaseXRunnerAppTest extends RunnerAppTest {
                 .withContextItemType(contextItemType)
                 .withContextItemValue(contextItemValue)
                 .withConnectionData("localhost", "1984", "admin", "admin")
+                .withDatabase("test")
                 .build();
     }
 
@@ -76,6 +96,7 @@ public class BaseXRunnerAppTest extends RunnerAppTest {
                 .withMainFileName(xqueryMainFile.getAbsolutePath())
                 .withVariable("v", value, type)
                 .withConnectionData("localhost", "1984", "admin", "admin")
+                .withDatabase("test")
                 .build();
     }
 }

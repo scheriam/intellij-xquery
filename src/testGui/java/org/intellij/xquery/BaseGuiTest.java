@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,8 @@
 
 package org.intellij.xquery;
 
-import com.intellij.testFramework.PlatformTestCase;
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase;
+import com.intellij.util.PlatformUtils;
 import net.java.openjdk.cacio.ctc.junit.CacioFESTRunner;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
@@ -29,6 +29,7 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 
 import javax.swing.JComponent;
+import javax.swing.text.JTextComponent;
 import java.awt.Component;
 import java.awt.Container;
 
@@ -42,7 +43,7 @@ public abstract class BaseGuiTest extends LightPlatformCodeInsightFixtureTestCas
     protected FrameFixture window;
 
     protected BaseGuiTest() {
-        PlatformTestCase.initPlatformPrefix("not_existing_class", "PlatformLangXml");
+        System.setProperty(PlatformUtils.PLATFORM_PREFIX_KEY, PlatformUtils.PYCHARM_PREFIX);
     }
 
     protected boolean isWriteActionRequired() {
@@ -60,20 +61,23 @@ public abstract class BaseGuiTest extends LightPlatformCodeInsightFixtureTestCas
         });
         GuiActionRunner.execute(new GuiTask() {
             protected void executeInEDT() {
-                disableTooltipForChildrenToSatisfyIdeasUsefulTestCase(frame);
+                disableTooltipAndBlinkRadeForChildrenToSatisfyIdeasUsefulTestCase(frame);
             }
         });
         window = new FrameFixture(frame);
         window.show();
     }
 
-    private void disableTooltipForChildrenToSatisfyIdeasUsefulTestCase(Container container) {
+    private void disableTooltipAndBlinkRadeForChildrenToSatisfyIdeasUsefulTestCase(Container container) {
         for (Component component : container.getComponents()) {
             if (component instanceof JComponent) {
                 ((JComponent) component).setToolTipText(null);
             }
+            if (component instanceof JTextComponent) {
+                ((JTextComponent)component).getCaret().setBlinkRate(0);
+            }
             if (component instanceof Container) {
-                disableTooltipForChildrenToSatisfyIdeasUsefulTestCase((Container) component);
+                disableTooltipAndBlinkRadeForChildrenToSatisfyIdeasUsefulTestCase((Container) component);
             }
         }
     }

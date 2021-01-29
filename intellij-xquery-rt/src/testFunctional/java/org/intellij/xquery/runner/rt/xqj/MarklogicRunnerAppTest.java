@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2016 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,15 +32,8 @@ import static org.intellij.xquery.runner.rt.XQueryItemType.XS_TOKEN;
 import static org.intellij.xquery.runner.rt.XQueryItemType.XS_UNTYPED_ATOMIC;
 import static org.intellij.xquery.runner.rt.XQueryRunConfigBuilder.runConfig;
 
-/**
- * User: ligasgr
- * Date: 27/01/14
- * Time: 14:28
- */
 @Ignore("works only when Marklogic instance is up")
 public class MarklogicRunnerAppTest extends RunnerAppTest {
-
-
     @DataPoints
     public static DataPair[] getMarklogicCompatibleData() {
         return new DataPair[]{
@@ -56,6 +49,14 @@ public class MarklogicRunnerAppTest extends RunnerAppTest {
     @Override
     protected String getDataSourceType() {
         return XQueryDataSourceType.MARKLOGIC.toString();
+    }
+
+    protected String prepareConfigurationForMainFile(File xqueryMainFile) {
+        return runConfig()
+                .withTypeName(getDataSourceType())
+                .withMainFileName(xqueryMainFile.getAbsolutePath())
+                .withConnectionData("localhost", "8003", "admin", "admin")
+                .build();
     }
 
     protected String prepareConfigurationWithContextItemForMainFile(File xqueryMainFile, String contextItemValue,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ import org.intellij.xquery.psi.XQueryFunctionInvocation;
 import org.intellij.xquery.psi.XQueryFunctionName;
 
 import static com.intellij.psi.util.PsiTreeUtil.getParentOfType;
-import static javax.xml.XMLConstants.NULL_NS_URI;
+import static javax.xml.XMLConstants.DEFAULT_NS_PREFIX;
 import static org.intellij.xquery.documentation.DocumentationStylist.FUNCTION_END;
 import static org.intellij.xquery.documentation.DocumentationStylist.FUNCTION_START;
 import static org.intellij.xquery.documentation.DocumentationStylist.wrapWithHtmlAndStyle;
@@ -34,9 +34,20 @@ import static org.intellij.xquery.util.StringUtils.removeQuotOrAposIfNeeded;
 
 public class FunctionDocumentationProvider implements PsiBasedDocumentationProvider<XQueryFunctionName> {
 
+    private MarkLogicFunctionDefs functionDefs = MarkLogicFunctionDefs.instance();
+
     @Override
     public String generateDoc(XQueryFunctionName functionName) {
+        MarkLogicFunctionDefs.Function func = functionDefs.getFunction (functionName.getPrefixText() + ":" + functionName.getLocalNameText());
+
+        if (func != null) return func.docAsHtml();
+
+        func = functionDefs.getFunction ("fn:" + functionName.getLocalNameText());
+
+        if (func != null) return func.docAsHtml();
+
         XQueryFunctionDecl elementToProduceDescription = getElementToProduceDescription(functionName);
+
         if (elementToProduceDescription != null) {
             return wrapWithHtmlAndStyle(getDocFromFunctionDeclaration(functionName, elementToProduceDescription).getText());
         } else {
@@ -51,7 +62,7 @@ public class FunctionDocumentationProvider implements PsiBasedDocumentationProvi
 
     private String getDocumentationFromExternalFile(XQueryFunctionName functionName) {
         String name = functionName.getLocalNameText();
-        String doc = ExternalDocumentationFetcher.fetch(name);
+        String doc = ExternalDocumentationFetcher.fetch(functionName.getProject(), name);
         if (doc != null)
             return wrapWithHtmlAndStyle(doc);
         else
@@ -66,7 +77,7 @@ public class FunctionDocumentationProvider implements PsiBasedDocumentationProvi
         XQueryFile xqueryFile = (XQueryFile) functionName.getContainingFile();
         String prefix = functionName.getPrefix() != null ? functionName.getPrefix().getText() : null;
         String mappedNamespace = xqueryFile.mapFunctionPrefixToNamespace(prefix);
-        String namespace = removeQuotOrAposIfNeeded(mappedNamespace != null ? mappedNamespace : NULL_NS_URI);
+        String namespace = removeQuotOrAposIfNeeded(mappedNamespace != null ? mappedNamespace : DEFAULT_NS_PREFIX);
         String description = getSignature(elementToProduceDescription);
         String xqDocDescription = XQDocDescriptionExtractor.getXQDocDescription(elementToProduceDescription);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,14 +54,9 @@ import static org.intellij.xquery.runner.rt.XQueryItemType.XS_YEAR_MONTH_DURATIO
 import static org.intellij.xquery.runner.rt.XQueryRunConfigBuilder.runConfig;
 import static org.junit.Assert.assertThat;
 
-/**
- * User: ligasgr
- * Date: 09/01/14
- * Time: 17:31
- */
 @RunWith(Theories.class)
 public abstract class RunnerAppTest {
-    private static final String RETURN_CONTEXT_ITEM_XQUERY = ".";
+    protected static final String RETURN_CONTEXT_ITEM_XQUERY = ".";
     protected static final String VALUE = "val";
     protected static final String NUMERIC_VALUE = "123";
     protected static final String NEGATIVE_NUMERIC_VALUE = "-123";
@@ -115,7 +110,7 @@ public abstract class RunnerAppTest {
 
     @Test
     public void shouldBindContextItemForDocumentNode() throws Exception {
-        String contextItemValue = "<tag>val</tag>";
+        String contextItemValue = "<outer><tag>val</tag></outer>";
         String contextItemValueInCData = "<![CDATA[" + contextItemValue + "]]>";
         String contextItemType = DOCUMENT.getTextRepresentation();
         assertBindsContextItem(contextItemType, contextItemValueInCData, contextItemValue);
@@ -123,10 +118,22 @@ public abstract class RunnerAppTest {
 
     @Test
     public void shouldBindVariableForDocumentNode() throws Exception {
-        String contextItemValue = "<tag>val</tag>";
-        String contextItemValueInCData = "<![CDATA[" + contextItemValue + "]]>";
-        String contextItemType = DOCUMENT.getTextRepresentation();
-        assertBindsVariable(contextItemType, contextItemValueInCData, contextItemValue);
+        String variableItemValue = "<outer><tag>val</tag></outer>";
+        String variableItemValueInCData = "<![CDATA[" + variableItemValue + "]]>";
+        String variableItemType = DOCUMENT.getTextRepresentation();
+        assertBindsVariable(variableItemType, variableItemValueInCData, variableItemValue);
+    }
+
+    @Test
+    public void shouldProperlyReturnXmlFromContents() throws Exception {
+        String contents = "<outer><tag>val</tag></outer>";
+        File xqueryMainFile = createFileWithContents(contents);
+        String config = prepareConfigurationForMainFile(xqueryMainFile);
+        XQueryRunConfig runConfig = new XQueryRunConfig(config);
+
+        runAppFor(runConfig);
+
+        assertThat(normalize(outputStream.getString()), is(contents));
     }
 
     protected void assertBindsContextItem(String type, String value) throws Exception {
@@ -143,7 +150,7 @@ public abstract class RunnerAppTest {
 
         runAppFor(config);
 
-        assertThat(outputStream.getString(), is(expectedValue));
+        assertThat(normalize(outputStream.getString()), is(expectedValue));
     }
 
     protected void assertBindsVariable(String type, String value,
@@ -152,22 +159,41 @@ public abstract class RunnerAppTest {
 
         runAppFor(config);
 
-        assertThat(outputStream.getString(), is(expectedValue));
+        assertThat(normalize(outputStream.getString()), is(expectedValue));
     }
 
-    private XQueryRunConfig prepareConfigForVariable(String type, String value) throws Exception {
+    private String normalize(String initialValue) {
+        if (initialValue == null) return null;
+        if (initialValue.length() < 2) return initialValue;
+        String value = initialValue.replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>","").replaceAll("\\s+", "");
+        String unescaped = value.startsWith("\"") && value.endsWith("\"") ? value.substring(1, value.length() - 1) : value;
+        if ("true()".equals(unescaped)) {
+            return "true";
+        } else {
+            return unescaped;
+        }
+    }
+
+    protected XQueryRunConfig prepareConfigForVariable(String type, String value) throws Exception {
         File xqueryMainFile = createFileWithContents(RETURN_VARIABLE_XQUERY);
         return new XQueryRunConfig(prepareConfigurationWithVariableForMainFile(xqueryMainFile, value, type));
     }
 
-    private XQueryRunConfig prepareConfigForContextItem(String type, String value) throws Exception {
+    protected XQueryRunConfig prepareConfigForContextItem(String type, String value) throws Exception {
         File xqueryMainFile = createFileWithContents(RETURN_CONTEXT_ITEM_XQUERY);
         return new XQueryRunConfig(prepareConfigurationWithContextItemForMainFile(xqueryMainFile, value, type));
     }
 
     private void runAppFor(XQueryRunConfig config) throws Exception {
         RunnerApp app = XQueryRunnerAppFactory.getInstance(config, printStream);
-        app.run();
+        app.runApp();
+    }
+
+    protected String prepareConfigurationForMainFile(File xqueryMainFile) {
+        return runConfig()
+                .withTypeName(getDataSourceType())
+                .withMainFileName(xqueryMainFile.getAbsolutePath())
+                .build();
     }
 
     protected String prepareConfigurationWithContextItemForMainFile(File xqueryMainFile, String contextItemValue,
@@ -181,7 +207,7 @@ public abstract class RunnerAppTest {
     }
 
     protected String prepareConfigurationWithVariableForMainFile(File xqueryMainFile, String value, String type) {
-        return  runConfig()
+        return runConfig()
                 .withTypeName(getDataSourceType())
                 .withMainFileName(xqueryMainFile.getAbsolutePath())
                 .withVariable("v", value, type)

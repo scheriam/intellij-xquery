@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
+ * Copyright 2013-2017 Grzegorz Ligas <ligasgr@gmail.com> and other contributors
  * (see the CONTRIBUTORS file).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -156,11 +156,13 @@ public class XQuerySyntaxHighlighter extends SyntaxHighlighterBase {
                 || tokenType == XQueryTypes.INTEGERLITERAL) {
             return NUMBERS;
         }
-        if (tokenType == XQueryTypes.STRINGLITERAL
+        if (tokenType == XQueryTypes.STRINGCHAR
                 || tokenType == XQueryTypes.CHAR
-                || tokenType == XQueryTypes.PREDEFINEDENTITYREF
-                || tokenType == XQueryTypes.APOSTROPHE
-                || tokenType == XQueryTypes.QUOT) {
+                || tokenType == XQueryTypes.OPENINGAPOS
+                || tokenType == XQueryTypes.CLOSINGAPOS
+                || tokenType == XQueryTypes.AMPERSAND
+                || tokenType == XQueryTypes.OPENINGQUOT
+                || tokenType == XQueryTypes.CLOSINGQUOT) {
             return STRINGS;
         }
         if (tokenType == XQueryTypes.SEMICOLON) {
@@ -196,6 +198,7 @@ public class XQuerySyntaxHighlighter extends SyntaxHighlighterBase {
                 || tokenType == XQueryTypes.OP_MINUS
                 || tokenType == XQueryTypes.NODECOMP_GT
                 || tokenType == XQueryTypes.NODECOMP_LT
+                || tokenType == XQueryTypes.OP_ARROW
                 ) {
             return OPERATION_SIGNS;
         }
@@ -344,9 +347,11 @@ public class XQuerySyntaxHighlighter extends SyntaxHighlighterBase {
                 || tokenType == XQueryTypes.K_BOOLEAN_NODE
                 || tokenType == XQueryTypes.K_NULL_NODE
                 || tokenType == XQueryTypes.K_ARRAY_NODE
+                || tokenType == XQueryTypes.K_ARRAY
+                || tokenType == XQueryTypes.K_EXPONENT_SEPARATOR
                 ) {
             return KEYWORDS;
         }
-        return EMPTY;
+        return TextAttributesKey.EMPTY_ARRAY;
     }
 }
